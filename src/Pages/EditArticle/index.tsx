@@ -14,7 +14,7 @@ interface Article {
   isDataImported: boolean;
 }
 
-const CreateArticle: React.FC = () => {
+const EditArticle: React.FC = () => {
   let params: any = useParams();
 
   const [date, setDate] = useState<Date>(new Date());
@@ -37,7 +37,7 @@ const CreateArticle: React.FC = () => {
             title: response.data.title,
             description: response.data.description,
             markdownArticle: response.data.markdownArticle,
-            tags: response.data.tags[0],
+            tags: response.data.tags.join([', ']),
             author: response.data.author,
             date: new Date(response.data.date.toString()),
             isDataImported: true,
@@ -53,12 +53,13 @@ const CreateArticle: React.FC = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    //Gambiarra momentária, vai ser alterado:
+    const regex = /[\u00C0-\u00FF]*?\b[\w\u00C0-\u00FF\s\-.']+\b/gim;
+
     const newArticle = {
       title: article.title,
       description: article.description,
       markdownArticle: article.markdownArticle,
-      tags: [article.tags],
+      tags: article.tags.match(regex),
       author: article.author,
       date: article.date,
     };
@@ -151,7 +152,7 @@ const CreateArticle: React.FC = () => {
         <div className="form-group">
           <input
             type="submit"
-            value="Create Article"
+            value="Edit Article"
             className="btn btn-primary"
           />
         </div>
@@ -160,4 +161,4 @@ const CreateArticle: React.FC = () => {
   );
 };
 
-export default CreateArticle;
+export default EditArticle;
