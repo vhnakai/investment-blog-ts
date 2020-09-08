@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import api from '../../services/api';
 // import ReactMarkdown from "react-markdown";
 
 interface Article {
@@ -17,14 +18,14 @@ const Home: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/articles/').then(res => {
+    api.get('/articles/').then(res => {
       setArticles(res.data);
     });
   }, []);
 
   const deleteArticle = (id: string) => {
-    axios
-      .delete('http://localhost:5000/articles/' + id)
+    api
+      .delete('/articles/' + id)
       .then((res: AxiosResponse<any>) => console.log(res.data));
     setArticles(articles.filter((el: Article) => el.slug !== id));
   };

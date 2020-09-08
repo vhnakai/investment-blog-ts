@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -39,8 +39,8 @@ const CreateArticle: React.FC = () => {
 
     console.log(newArticle);
 
-    axios
-      .post('http://localhost:5000/articles/add', newArticle)
+    api
+      .post('/articles/add', newArticle)
       .then(res => {
         console.log(res.data);
 
@@ -54,7 +54,7 @@ const CreateArticle: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <h3>Create New Article</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group">
@@ -132,7 +132,7 @@ const CreateArticle: React.FC = () => {
           />
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

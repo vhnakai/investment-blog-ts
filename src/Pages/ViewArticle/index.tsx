@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
+import api from "../../services/api";
 
 interface Article {
   title: string;
@@ -24,8 +25,8 @@ function ViewArticle() {
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/articles/" + params.id)
+    api
+      .get("/articles/" + params.id)
       .then((response: AxiosResponse) => {
         setArticle({
           title: response.data.title,

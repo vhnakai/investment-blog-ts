@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import api from '../../services/api';
 
 interface Article {
   title: string;
@@ -30,8 +31,8 @@ const EditArticle: React.FC = () => {
 
   useEffect(() => {
     if (!article.isDataImported) {
-      axios
-        .get('http://localhost:5000/articles/' + params.id) //getting the id from url
+      api
+        .get('/articles/' + params.id) //getting the id from url
         .then((response: AxiosResponse) => {
           setArticle({
             title: response.data.title,
@@ -66,8 +67,8 @@ const EditArticle: React.FC = () => {
 
     console.log(newArticle);
 
-    axios
-      .post('http://localhost:5000/articles/update/' + params.id, newArticle)
+    api
+      .post('/articles/update/' + params.id, newArticle)
       .then((res: AxiosResponse) => {
         console.log(res.data);
 
