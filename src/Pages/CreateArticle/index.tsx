@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Form, Button } from 'react-bootstrap';
 
 interface Article {
   title: string;
@@ -56,33 +57,33 @@ const CreateArticle: React.FC = () => {
   return (
     <>
       <h3>Create New Article</h3>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Article Title: </label>
-          <input
+      <Form onSubmit={onSubmit}>
+        <Form.Group>
+          <Form.Label>Article Title: </Form.Label>
+          <Form.Control
             type="text"
             required
-            className="form-control"
             value={article.title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setArticle({ ...article, title: e.target.value })
             }
           />
-        </div>
-        <div className="form-group">
-          <label>Description: </label>
-          <textarea
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Description: </Form.Label>
+          <Form.Control
+            as="textarea"
             required
-            className="form-control"
             value={article.description}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setArticle({ ...article, description: e.target.value })
             }
           />
-        </div>
-        <div className="form-group">
-          <label>Article Body: </label>
-          <textarea
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Article Body: </Form.Label>
+          <Form.Control
+            as="textarea"
             required
             className="form-control"
             value={article.markdownArticle}
@@ -90,30 +91,28 @@ const CreateArticle: React.FC = () => {
               setArticle({ ...article, markdownArticle: e.target.value })
             }
           />
-        </div>
-        <div className="form-group">
-          <label>tags: </label>
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>tags: </Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={article.tags}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setArticle({ ...article, tags: e.target.value })
             }
           />
-        </div>
-        <div className="form-group">
-          <label>Author: </label>
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Author: </Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={article.author}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setArticle({ ...article, author: e.target.value })
             }
           />
-        </div>
-        <div className="form-group">
+        </Form.Group>
+        <Form.Group>
           <DatePicker
             dateFormat="dd/MM/yyyy"
             selected={date}
@@ -122,16 +121,17 @@ const CreateArticle: React.FC = () => {
               setDate(value);
             }}
           />
-        </div>
+        </Form.Group>
 
-        <div className="form-group">
-          <input
+        <Form.Group>
+          <Button
             type="submit"
-            value="Create Article"
-            className="btn btn-primary"
-          />
-        </div>
-      </form>
+            variant="primary"
+          >
+            Create Article
+          </Button>
+        </Form.Group>
+      </Form>
     </>
   );
 };

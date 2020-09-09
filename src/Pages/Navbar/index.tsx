@@ -1,27 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Navbar as Navb, Nav} from "react-bootstrap";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      <Link to="/" className="navbar-brand">
+    <Navb bg="dark" variant="dark">
+      <Navb.Brand href="/" className="navbar-brand">
         Investment Blog
-      </Link>
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
-            <Link to="/" className="nav-link">
+      </Navb.Brand>
+      <Navb.Collapse className="justify-content-end">
+        <Nav className="justify-content-end">
+          <Nav.Item>
+            <Nav.Link href="/">
               Articles
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/create" className="nav-link">
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/create">
               Create Article
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </Navb.Collapse>
+    </Navb>
   );
 };
 
