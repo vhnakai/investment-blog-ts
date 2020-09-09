@@ -5,18 +5,18 @@ import { Navbar as Navb, Nav} from "react-bootstrap";
 const Navbar: React.FC = () => {
   return (
     <Navb bg="dark" variant="dark">
-      <Navb.Brand href="/" className="navbar-brand">
+      <Navb.Brand as={Link} to="/" className="navbar-brand">
         Investment Blog
       </Navb.Brand>
       <Navb.Collapse className="justify-content-end">
         <Nav className="justify-content-end">
           <Nav.Item>
-            <Nav.Link href="/">
+            <Nav.Link as={Link} to="/">
               Articles
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/create">
+            <Nav.Link as={Link} to="/create">
               Create Article
             </Nav.Link>
           </Nav.Item>

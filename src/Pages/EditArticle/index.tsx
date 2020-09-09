@@ -147,7 +147,6 @@ const EditArticle: React.FC = () => {
             }}
           />
         </Form.Group>
-
         <Form.Group>
           <Button
             type="submit"
