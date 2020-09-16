@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
-import { Container, Row, Card, CardDeck, Col, Jumbotron, CardColumns } from 'react-bootstrap';
+import { Container, Card, Jumbotron, CardColumns } from 'react-bootstrap';
 // import ReactMarkdown from "react-markdown";
 
 interface Article {
@@ -38,34 +38,34 @@ const Home: React.FC = () => {
       </Jumbotron>
       <Container fluid>
         <CardColumns>
-            {articles.map(article => (
+          {articles.map(article => (
 
-              <Card key={article._id} className="text-center">
-                <Card.Header>
-                  <Link to={'/edit/' + article.slug}>edit</Link> |{' '}
-                  <Link to="/" onClick={() => deleteArticle(article.slug)}>
-                    delete
+            <Card key={article._id} className="text-center">
+              <Card.Header>
+                <Link to={'/edit/' + article.slug}>edit</Link> |{' '}
+                <Link to="/" onClick={() => deleteArticle(article.slug)}>
+                  delete
                 </Link>
-                </Card.Header>
-                <Card.Body>
-                  <Link to={'/' + article.slug}>
-                    <Card.Title>{article.title}</Card.Title>
-                    <Card.Text>
-                      <p>{article.description}</p>
-                      {/* <div className="small">
+              </Card.Header>
+              <Card.Body>
+                <Link to={'/' + article.slug}>
+                  <Card.Title>{article.title}</Card.Title>
+                  <Card.Text>
+                    <p>{article.description}</p>
+                    {/* <div className="small">
                     <ReactMarkdown
                       className="small"
                       source={article.markdownArticle}
                     />
                   </div> */}
-                    </Card.Text>
-                  </Link>
-                </Card.Body>
-                <Card.Footer>{article.date}</Card.Footer>
-              </Card>
+                  </Card.Text>
+                </Link>
+              </Card.Body>
+              <Card.Footer>{article.date}</Card.Footer>
+            </Card>
 
-            ))}
-          </CardColumns>
+          ))}
+        </CardColumns>
       </Container>
     </>
   );
