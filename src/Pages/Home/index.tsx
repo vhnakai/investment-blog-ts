@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 import { Container, Card, Jumbotron, CardColumns } from 'react-bootstrap';
-// import ReactMarkdown from "react-markdown";
+import { isAuthenticated, getHeaders } from '../../services/auth';
 
 interface Article {
   _id: string;
@@ -33,20 +33,21 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Jumbotron >
+      <Jumbotron>
         <h1>Encontre investimentos em que você acredita!</h1>
       </Jumbotron>
       <Container fluid>
         <CardColumns>
           {articles.map(article => (
-
             <Card key={article._id} className="text-center">
-              <Card.Header>
-                <Link to={'/edit/' + article.slug}>edit</Link> |{' '}
-                <Link to="/" onClick={() => deleteArticle(article.slug)}>
-                  delete
-                </Link>
-              </Card.Header>
+              {isAuthenticated() ? (
+                <Card.Header>
+                  <Link to={'/edit/' + article.slug}>edit</Link> |{' '}
+                  <Link to="/" onClick={() => deleteArticle(article.slug)}>
+                    delete
+                  </Link>
+                </Card.Header>
+              ) : null}
               <Card.Body>
                 <Link to={'/' + article.slug}>
                   <Card.Title>{article.title}</Card.Title>
@@ -61,9 +62,10 @@ const Home: React.FC = () => {
                   </Card.Text>
                 </Link>
               </Card.Body>
-              <Card.Footer>{article.date}</Card.Footer>
+              <Card.Footer>
+                {new Date(article.date).toLocaleString()}
+              </Card.Footer>
             </Card>
-
           ))}
         </CardColumns>
       </Container>
