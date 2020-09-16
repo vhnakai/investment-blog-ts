@@ -4,15 +4,13 @@ import { Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import Routes from './routes'
 import Navbar from "./Pages/Navbar";
+import Footer from "./Pages/Footer";
 
 const App: React.FC = () => (
   <Router>
     <Navbar />
-    <Container fluid>
-      <Row>
-        <Routes />
-      </Row>
-    </Container>
+    <Routes />
+    <Footer/>
   </Router>
 );
 

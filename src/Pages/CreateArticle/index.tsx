@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
 
 interface Article {
   title: string;
@@ -56,7 +56,10 @@ const CreateArticle: React.FC = () => {
 
   return (
     <>
+      <Jumbotron >
       <h3>Create New Article</h3>
+      </Jumbotron>
+      <Container fluid>
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label>Article Title: </Form.Label>
@@ -132,6 +135,7 @@ const CreateArticle: React.FC = () => {
           </Button>
         </Form.Group>
       </Form>
+      </Container>
     </>
   );
 };

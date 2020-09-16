@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Jumbotron, Container  } from 'react-bootstrap';
 
 interface Article {
   title: string;
@@ -82,7 +82,11 @@ const EditArticle: React.FC = () => {
 
   return (
     <>
-      <h3>Create New Article</h3>
+      <Jumbotron >
+      <h3>Edit a Article</h3>
+      </Jumbotron>
+      <Container fluid>
+
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label>Article Title: </Form.Label>
@@ -154,6 +158,7 @@ const EditArticle: React.FC = () => {
           >Edit Article</Button>
         </Form.Group>
       </Form>
+      </Container>
     </>
   );
 };
