@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Navbar as Navb, Nav} from "react-bootstrap";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar as Navb, Nav } from 'react-bootstrap';
+import { isAuthenticated } from '../../services/auth';
 
 const Navbar: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const Navbar: React.FC = () => {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/create">
+            <Nav.Link as={Link} to={isAuthenticated() ? '/create' : '/signin'}>
               Create Article
             </Nav.Link>
           </Nav.Item>
