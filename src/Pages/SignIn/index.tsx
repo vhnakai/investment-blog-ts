@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { auth, isAuthenticated } from '../../services/auth';
+import { auth } from '../../services/auth';
 
 interface User {
   email: string;

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
 import api from '../../services/api';
-import { Container, Card, Jumbotron, CardColumns } from 'react-bootstrap';
-import { isAuthenticated, getHeaders } from '../../services/auth';
+import { HomeContainer, HomeCard, HomeJumbotron, HomeCardColumns } from './styles';
+import Footer from '../../Components/Footer';
 
 interface Article {
   _id: string;
@@ -26,17 +25,17 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Jumbotron>
+      <HomeJumbotron>
         <h1>Encontre investimentos em que você acredita!</h1>
-      </Jumbotron>
-      <Container fluid>
-        <CardColumns>
+      </HomeJumbotron>
+      <HomeContainer fluid>
+        <HomeCardColumns>
           {articles.map(article => (
-            <Card key={article._id} className="text-center">
-              <Card.Body>
+            <HomeCard key={article._id} className="text-center">
+              <HomeCard.Body>
                 <Link to={'/' + article.slug}>
-                  <Card.Title>{article.title}</Card.Title>
-                  <Card.Text>
+                  <HomeCard.Title>{article.title}</HomeCard.Title>
+                  <HomeCard.Text>
                     <p>{article.description}</p>
                     {/* <div className="small">
                     <ReactMarkdown
@@ -44,16 +43,17 @@ const Home: React.FC = () => {
                       source={article.markdownArticle}
                     />
                   </div> */}
-                  </Card.Text>
+                  </HomeCard.Text>
                 </Link>
-              </Card.Body>
-              <Card.Footer>
+              </HomeCard.Body>
+              <HomeCard.Footer>
                 {new Date(article.date).toLocaleString()}
-              </Card.Footer>
-            </Card>
+              </HomeCard.Footer>
+            </HomeCard>
           ))}
-        </CardColumns>
-      </Container>
+        </HomeCardColumns>
+      </HomeContainer>
+      <Footer />
     </>
   );
 };

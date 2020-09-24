@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
-import { Container, Card, Jumbotron, CardColumns } from 'react-bootstrap';
-import { isAuthenticated, getHeaders } from '../../services/auth';
+import { Container, Card, CardColumns } from 'react-bootstrap';
+import { isAuthenticated } from '../../services/auth';
 
 interface Article {
   _id: string;
@@ -33,9 +33,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Jumbotron>
-        <h1>Encontre investimentos em que você acredita!</h1>
-      </Jumbotron>
       <Container fluid>
         <CardColumns>
           {articles.map(article => (
