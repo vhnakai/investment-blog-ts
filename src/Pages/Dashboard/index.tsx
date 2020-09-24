@@ -15,7 +15,7 @@ interface Article {
   date: string;
 }
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
@@ -23,6 +23,13 @@ const Home: React.FC = () => {
       setArticles(res.data);
     });
   }, []);
+
+  const deleteArticle = (id: string) => {
+    api
+      .delete('/articles/' + id)
+      .then((res: AxiosResponse<any>) => console.log(res.data));
+    setArticles(articles.filter((el: Article) => el.slug !== id));
+  };
 
   return (
     <>
@@ -33,6 +40,14 @@ const Home: React.FC = () => {
         <CardColumns>
           {articles.map(article => (
             <Card key={article._id} className="text-center">
+              {isAuthenticated() ? (
+                <Card.Header>
+                  <Link to={'/edit/' + article.slug}>edit</Link> |{' '}
+                  <Link to="/" onClick={() => deleteArticle(article.slug)}>
+                    delete
+                  </Link>
+                </Card.Header>
+              ) : null}
               <Card.Body>
                 <Link to={'/' + article.slug}>
                   <Card.Title>{article.title}</Card.Title>
@@ -58,4 +73,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

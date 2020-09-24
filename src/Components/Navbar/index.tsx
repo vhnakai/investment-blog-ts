@@ -16,11 +16,20 @@ const Navbar: React.FC = () => {
               Articles
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link as={Link} to={isAuthenticated() ? '/create' : '/signin'}>
-              Create Article
-            </Nav.Link>
-          </Nav.Item>
+          {isAuthenticated() ? (
+            <Nav.Item>
+              <Nav.Link as={Link} to={'/create'}>
+                Create Article
+              </Nav.Link>
+            </Nav.Item>
+          ) : (
+              <Nav.Item>
+                <Nav.Link as={Link} to={'/about'}>
+                  Sobre
+              </Nav.Link>
+              </Nav.Item>
+            )}
+
         </Nav>
       </Navb.Collapse>
     </Navb>
