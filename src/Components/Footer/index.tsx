@@ -1,14 +1,14 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
-import { FooterContainer, FooterRow, FooterCol } from './styles';
+import { FooterContainer, FooterRow, FooterCol, FooterDiv } from './styles';
 import { FiInstagram, FiFacebook } from 'react-icons/fi';
 
 
 const Footer: React.FC = () => {
 
   return (
-    <footer className='fixed-bottom'>
-      <FooterContainer fluid>
+    <FooterDiv className='fixed-bottom'>
+      <FooterContainer >
         <FooterRow>
           <FooterCol md>
             <h2>Logo</h2>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
           </FooterCol>
         </FooterRow>
       </FooterContainer>
-    </footer>
+    </FooterDiv>
 
   );
 };

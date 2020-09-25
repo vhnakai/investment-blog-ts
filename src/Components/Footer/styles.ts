@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { Container, Row, Col, } from 'react-bootstrap';
 
-export const FooterContainer = styled(Container)`
+export const FooterDiv = styled.footer`
   background: #212121;
+
+`;
+
+export const FooterContainer = styled(Container)`
   color: #F2F2F2;
   padding-top: 20px;
 `;
@@ -10,5 +14,5 @@ export const FooterContainer = styled(Container)`
 export const FooterRow = styled(Row)``;
 
 export const FooterCol = styled(Col)`
-line-height:26px;
+  line-height:26px;
 `;
