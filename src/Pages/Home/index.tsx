@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <HomeJumbotron>
+      <HomeJumbotron fluid>
         <h1>Encontre investimentos em que você acredita!</h1>
       </HomeJumbotron>
       <HomeContainer fluid>

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar as Navb, Nav } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
+import { NavBar } from './styles';
 import { isAuthenticated } from '../../services/auth';
 
 const Navbar: React.FC = () => {
   return (
-    <Navb bg="dark" variant="dark">
-      <Navb.Brand as={Link} to="/" className="navbar-brand">
+    <NavBar variant="dark">
+      <NavBar.Brand as={Link} to="/" >
         Investment Blog
-      </Navb.Brand>
-      <Navb.Collapse className="justify-content-end">
+      </NavBar.Brand>
+      <NavBar.Collapse className="justify-content-end">
         <Nav className="justify-content-end">
           <Nav.Item>
             <Nav.Link as={Link} to="/">
@@ -29,10 +30,9 @@ const Navbar: React.FC = () => {
               </Nav.Link>
               </Nav.Item>
             )}
-
         </Nav>
-      </Navb.Collapse>
-    </Navb>
+      </NavBar.Collapse>
+    </NavBar>
   );
 };
 

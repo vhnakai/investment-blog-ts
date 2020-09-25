@@ -10,10 +10,10 @@ const Footer: React.FC = () => {
     <footer className='fixed-bottom'>
       <FooterContainer fluid>
         <FooterRow>
-          <FooterCol sm={2}>
+          <FooterCol md>
             <h2>Logo</h2>
           </FooterCol>
-          <FooterCol sm>
+          <FooterCol md>
             <h4>Contato</h4>
             <p>email@email.com</p>
           </FooterCol>
@@ -21,10 +21,9 @@ const Footer: React.FC = () => {
             <FiFacebook size={35} />
             <FiInstagram size={35} />
           </FooterCol>
-          <FooterCol xl>
+          <FooterCol md>
             <h4>Feito por </h4>
-            <p>Wellignton</p>
-            <p>Vitor Hugo Nakai</p>
+            <p>Wellignton  e Vitor Hugo Nakai</p>
           </FooterCol>
         </FooterRow>
       </FooterContainer>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { SignInContainer, SignInRow, SignInCol, SignInForm, SignInButton, WelcomeContainer } from './styles';
 import { auth } from '../../services/auth';
 
 interface User {
@@ -22,20 +22,17 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <Container fluid="sm">
-      <Row className="text-center">
-        <Col>
-          <div style={{ padding: 48 }}>
+    <SignInContainer fluid="sm">
+      <SignInRow className="text-center">
+        <SignInCol>
+          <WelcomeContainer>
             <h1>LOGO AQUI</h1>
             <h4 className="mb">Bem-vindo</h4>
-          </div>
+          </WelcomeContainer>
 
-          <Form
-            style={{ maxWidth: 320, paddingTop: 24, margin: 'auto' }}
-            onSubmit={onSubmit}
-          >
-            <Form.Group>
-              <Form.Control
+          <SignInForm onSubmit={onSubmit}>
+            <SignInForm.Group>
+              <SignInForm.Control
                 type="text"
                 placeholder="Login"
                 required
@@ -44,7 +41,7 @@ const SignIn: React.FC = () => {
                   setUser({ ...user, email: e.target.value })
                 }
               />
-              <Form.Control
+              <SignInForm.Control
                 type="password"
                 placeholder="Password"
                 required
@@ -53,16 +50,16 @@ const SignIn: React.FC = () => {
                   setUser({ ...user, password: e.target.value })
                 }
               />
-            </Form.Group>
-            <Form.Group>
-              <Button type="submit" variant="primary" size="lg" block>
+            </SignInForm.Group>
+            <SignInForm.Group>
+              <SignInButton type="submit" variant="primary" size="lg" block>
                 Entrar
-              </Button>
-            </Form.Group>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+              </SignInButton>
+            </SignInForm.Group>
+          </SignInForm>
+        </SignInCol>
+      </SignInRow>
+    </SignInContainer>
   );
 };
 
