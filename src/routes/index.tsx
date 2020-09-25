@@ -4,7 +4,8 @@ import AppRoutes from './app.routes';
 import { isAuthenticated } from '../services/auth';
 
 const Routes: React.FC = () => {
-  return isAuthenticated() ? <AuthRoutes /> : <AppRoutes />;
+  //return isAuthenticated() ? <AuthRoutes /> : <AppRoutes />;
+  return <AuthRoutes />
 };
 
 export default Routes;

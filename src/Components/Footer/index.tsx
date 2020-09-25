@@ -12,7 +12,6 @@ const Footer: React.FC = () => {
         <FooterRow>
           <FooterCol sm={2}>
             <h2>Logo</h2>
-
           </FooterCol>
           <FooterCol sm>
             <h4>Contato</h4>
@@ -27,7 +26,6 @@ const Footer: React.FC = () => {
             <p>Wellignton</p>
             <p>Vitor Hugo Nakai</p>
           </FooterCol>
-
         </FooterRow>
       </FooterContainer>
     </footer>
