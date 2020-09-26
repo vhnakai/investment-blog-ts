@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
-import { isAuthenticated } from '../services/auth';
+import { checkAuthenticated } from '../services/auth';
 
 const Routes: React.FC = () => {
-  return isAuthenticated() ? <AuthRoutes /> : <AppRoutes />;
+  const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
+  useEffect(() => {
+    checkAuthenticated().then(isAuth => {
+      if (isAuth) setIsAuthenticated(true);
+    });
+  }, []);
+
+  // console.log(isAuthenticated());
+  return isAuthenticated ? <AuthRoutes /> : <AppRoutes />;
 };
 
 export default Routes;

@@ -3,7 +3,6 @@ import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
-import { getHeaders } from '../../services/auth';
 
 interface Article {
   title: string;
@@ -42,7 +41,7 @@ const CreateArticle: React.FC = () => {
     console.log(newArticle);
 
     api
-      .post('/articles/add', newArticle, { headers: getHeaders() })
+      .post('/articles/add', newArticle)
       .then(res => {
         console.log(res.data);
 

@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
-import { DashboardContainer, DashboardButton, DashboardCardColumns, DashboardCard } from './styles';
-import { isAuthenticated } from '../../services/auth';
+import {
+  DashboardContainer,
+  DashboardButton,
+  DashboardCardColumns,
+  DashboardCard,
+} from './styles';
 import { Button } from 'react-bootstrap';
 
 interface Article {
@@ -35,6 +39,20 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <DashboardContainer>
+        <DashboardButton
+          variant="danger"
+          onClick={() =>
+            api
+              .delete('auth/logout')
+              .then(res => {
+                console.log(res.data);
+                window.location.reload();
+              })
+              .catch(err => console.log(err))
+          }
+        >
+          teste logout
+        </DashboardButton>
         <DashboardCardColumns>
           {articles.map(article => (
             <DashboardCard key={article._id} className="text-center">
@@ -42,37 +60,40 @@ const Dashboard: React.FC = () => {
                 {new Date(article.date).toLocaleString()}
               </DashboardCard.Header>
               <DashboardCard.Body>
-                <Link to={'/ ' + article.slug} style={{ textDecoration: 'none' }}>
-                  <DashboardCard.Title><h1>{article.title}</h1></DashboardCard.Title>
+                <Link
+                  to={'/ ' + article.slug}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <DashboardCard.Title>
+                    <h1>{article.title}</h1>
+                  </DashboardCard.Title>
                   <DashboardCard.Text>
-                    <p>{article.description}</p>
-                    {
-                      /*
+                    {article.description}
+                    {/*
                       <div className="small">
                         <ReactMarkdown
                           className="small"
                           source={article.markdownArticle}
                         />
                       </div>
-                      */
-                    }
+                      */}
                   </DashboardCard.Text>
                 </Link>
               </DashboardCard.Body>
               <DashboardCard.Footer>
                 <Link to={'/edit/' + article.slug}>
-                  <DashboardButton variant="primary">
-                    edit
-                  </DashboardButton>
+                  <DashboardButton variant="primary">edit</DashboardButton>
                 </Link>
-                <Link to='/' >
-                  <DashboardButton variant="danger" onClick={() => deleteArticle(article.slug)}>
+                <Link to="/">
+                  <DashboardButton
+                    variant="danger"
+                    onClick={() => deleteArticle(article.slug)}
+                  >
                     delete
                   </DashboardButton>
                 </Link>
               </DashboardCard.Footer>
             </DashboardCard>
-
           ))}
         </DashboardCardColumns>
       </DashboardContainer>
