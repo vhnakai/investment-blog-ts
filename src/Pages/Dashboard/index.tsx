@@ -8,7 +8,6 @@ import {
   DashboardCardColumns,
   DashboardCard,
 } from './styles';
-import { Button } from 'react-bootstrap';
 
 interface Article {
   _id: string;

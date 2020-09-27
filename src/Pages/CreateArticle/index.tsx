@@ -3,6 +3,7 @@ import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
+import Dropzone from "../../Components/Dropzone";
 
 interface Article {
   title: string;
@@ -23,11 +24,14 @@ const CreateArticle: React.FC = () => {
     date: new Date(),
   });
   const [date, setDate] = useState<Date>(new Date());
+  const [selectedFile, setSelectedFile] = useState<File>();
+
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const regex = /[\u00C0-\u00FF]*?\b[\w\u00C0-\u00FF\s\-.']+\b/gim;
+
 
     const newArticle = {
       title: article.title,
@@ -36,9 +40,30 @@ const CreateArticle: React.FC = () => {
       tags: article.tags.match(regex),
       author: article.author,
       date: article.date,
+
     };
 
-    console.log(newArticle);
+    const { title, description, markdownArticle, author, date } = article;
+
+    const RegextedTags = article.tags.match(regex);
+
+    const data = new FormData();
+
+    data.append('title', title);
+    data.append('description', description);
+    data.append('markdownArticle', markdownArticle);
+    data.append('author', author);
+    data.append('date', date.toString());
+
+    if (RegextedTags) {
+      data.append('tags', JSON.stringify(RegextedTags));
+    }
+
+    if (selectedFile) {
+      data.append('image', selectedFile);
+    }
+
+    console.log(data);
 
     api
       .post('/articles/add', newArticle)
@@ -114,6 +139,9 @@ const CreateArticle: React.FC = () => {
                 setArticle({ ...article, author: e.target.value })
               }
             />
+          </Form.Group>
+          <Form.Group>
+            <Dropzone onFileUploaded={setSelectedFile} />
           </Form.Group>
           <Form.Group>
             <DatePicker

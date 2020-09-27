@@ -7,7 +7,7 @@ import { FiInstagram, FiFacebook } from 'react-icons/fi';
 const Footer: React.FC = () => {
 
   return (
-    <FooterDiv className='fixed-bottom'>
+    <FooterDiv >
       <FooterContainer >
         <FooterRow>
           <FooterCol md>

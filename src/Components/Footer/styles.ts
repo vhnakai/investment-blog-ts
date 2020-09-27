@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { Container, Row, Col, } from 'react-bootstrap';
 
 export const FooterDiv = styled.footer`
-  background: #212121;
+  position: absolute;
+  margin-top:auto;
 
+  width: 100%;
+  background: #212121;
 `;
 
 export const FooterContainer = styled(Container)`

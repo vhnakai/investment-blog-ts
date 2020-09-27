@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { Container, Jumbotron, CardColumns, Card, Button } from 'react-bootstrap';
 
 export const DashboardContainer = styled(Container)`
+  justify-content: center;
   margin-top: 40px;
+  position: relative;
+  min-height: 100vh;
 `;
 export const DashboardJumbotron = styled(Jumbotron)``;
 export const DashboardCardColumns = styled(CardColumns)``;
