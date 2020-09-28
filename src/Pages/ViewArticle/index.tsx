@@ -16,7 +16,7 @@ interface Article {
   date: Date;
 }
 
-function ViewArticle() {
+const ViewArticle: React.FC = () => {
   let params: any = useParams();
   const [article, setArticle] = useState<Article>({
     title: "",
