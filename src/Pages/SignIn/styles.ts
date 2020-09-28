@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export const SignInContainer = styled(Container)`
+  justify-content: center;
+  position: relative;
+  min-height: 100vh;
   margin-top: 40px;
 `;
 export const SignInRow = styled(Row)``;

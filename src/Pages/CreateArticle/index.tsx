@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
+import { CreateArticleForm, CreateArticleButton, CreateArticleContainer, CreateArticleJumbotron } from './styles';
 import Dropzone from "../../Components/Dropzone";
 
 interface Article {
@@ -26,12 +26,10 @@ const CreateArticle: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [selectedFile, setSelectedFile] = useState<File>();
 
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const regex = /[\u00C0-\u00FF]*?\b[\w\u00C0-\u00FF\s\-.']+\b/gim;
-
 
     const newArticle = {
       title: article.title,
@@ -81,14 +79,14 @@ const CreateArticle: React.FC = () => {
 
   return (
     <>
-      <Jumbotron>
+      <CreateArticleJumbotron fluid>
         <h3>Create New Article</h3>
-      </Jumbotron>
-      <Container fluid>
-        <Form onSubmit={onSubmit}>
-          <Form.Group>
-            <Form.Label>Article Title: </Form.Label>
-            <Form.Control
+      </CreateArticleJumbotron>
+      <CreateArticleContainer >
+        <CreateArticleForm onSubmit={onSubmit}>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>Article Title: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
               type="text"
               required
               value={article.title}
@@ -96,22 +94,12 @@ const CreateArticle: React.FC = () => {
                 setArticle({ ...article, title: e.target.value })
               }
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Description: </Form.Label>
-            <Form.Control
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>Article Body: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
               as="textarea"
-              required
-              value={article.description}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setArticle({ ...article, description: e.target.value })
-              }
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Article Body: </Form.Label>
-            <Form.Control
-              as="textarea"
+              rows={15}
               required
               className="form-control"
               value={article.markdownArticle}
@@ -119,31 +107,43 @@ const CreateArticle: React.FC = () => {
                 setArticle({ ...article, markdownArticle: e.target.value })
               }
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>tags: </Form.Label>
-            <Form.Control
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>Description: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
+              as="textarea"
+              rows={6}
+              required
+              value={article.description}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setArticle({ ...article, description: e.target.value })
+              }
+            />
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>tags: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
               type="text"
               value={article.tags}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setArticle({ ...article, tags: e.target.value })
               }
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Author: </Form.Label>
-            <Form.Control
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>Author: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
               type="text"
               value={article.author}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setArticle({ ...article, author: e.target.value })
               }
             />
-          </Form.Group>
-          <Form.Group>
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
             <Dropzone onFileUploaded={setSelectedFile} />
-          </Form.Group>
-          <Form.Group>
+          </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
             <DatePicker
               dateFormat="dd/MM/yyyy"
               selected={date}
@@ -152,15 +152,15 @@ const CreateArticle: React.FC = () => {
                 setDate(value);
               }}
             />
-          </Form.Group>
+          </CreateArticleForm.Group>
 
-          <Form.Group>
-            <Button type="submit" variant="primary">
+          <CreateArticleForm.Group>
+            <CreateArticleButton type="submit" variant="primary">
               Create Article
-            </Button>
-          </Form.Group>
-        </Form>
-      </Container>
+            </CreateArticleButton>
+          </CreateArticleForm.Group>
+        </CreateArticleForm>
+      </CreateArticleContainer>
     </>
   );
 };

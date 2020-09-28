@@ -33,9 +33,9 @@ const Home: React.FC = () => {
           {(articles.length > 0) ? articles.map(article => (
 
             <HomeCol key={article._id} sm={6}>
-              <HomeCard className="text-center h-100">
-                <HomeCard.Body>
-                  <Link to={'/' + article.slug}>
+              <Link to={'/' + article.slug}>
+                <HomeCard className="text-center h-100">
+                  <HomeCard.Body>
                     <HomeCard.Title>{article.title}</HomeCard.Title>
                     <HomeCard.Text>
                       <p>{article.description}</p>
@@ -46,14 +46,15 @@ const Home: React.FC = () => {
                     />
                   </div> */}
                     </HomeCard.Text>
-                  </Link>
-                </HomeCard.Body>
-                <HomeCard.Footer>
-                  {new Date(article.date).toLocaleString()}
-                </HomeCard.Footer>
-              </HomeCard>
+
+                  </HomeCard.Body>
+                  <HomeCard.Footer>
+                    {new Date(article.date).toLocaleString()}
+                  </HomeCard.Footer>
+                </HomeCard>
+              </Link>
             </HomeCol>
-          )) : <h1>Não foram encontrados nenhum Artigos.</h1>}
+          )) : <HomeCol> <h1>Não encontramos nenhum artigo.</h1> </HomeCol>}
 
         </HomeRow>
       </HomeContainer>

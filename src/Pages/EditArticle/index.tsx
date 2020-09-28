@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
-import { Form, Button, Jumbotron, Container  } from 'react-bootstrap';
+import { EditArticleForm, EditArticleButton, EditArticleContainer, EditArticleJumbotron } from './styles';
 
 interface Article {
   title: string;
@@ -82,83 +82,84 @@ const EditArticle: React.FC = () => {
 
   return (
     <>
-      <Jumbotron >
-      <h3>Edit a Article</h3>
-      </Jumbotron>
-      <Container fluid>
-
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Label>Article Title: </Form.Label>
-          <Form.Control
-            type="text"
-            required
-            value={article.title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setArticle({ ...article, title: e.target.value })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Description: </Form.Label>
-          <Form.Control
-            as="textarea"
-            required
-            value={article.description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setArticle({ ...article, description: e.target.value })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Article Body: </Form.Label>
-          <Form.Control
-            as="textarea"
-            required
-            value={article.markdownArticle}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setArticle({ ...article, markdownArticle: e.target.value })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>tags: </Form.Label>
-          <Form.Control
-            type="text"
-            value={article.tags}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setArticle({ ...article, tags: e.target.value })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Author: </Form.Label>
-          <Form.Control
-            type="text"
-            value={article.author}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setArticle({ ...article, author: e.target.value })
-            }
-          />
-        </Form.Group>
-        <Form.Group>
-          <DatePicker
-            dateFormat="dd/MM/yyyy"
-            selected={date}
-            onChange={(value: Date) => {
-              setArticle({ ...article, date: value });
-              setDate(value);
-            }}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Button
-            type="submit"
-            variant="primary"
-          >Edit Article</Button>
-        </Form.Group>
-      </Form>
-      </Container>
+      <EditArticleJumbotron fluid>
+        <h3>Edit a Article</h3>
+      </EditArticleJumbotron>
+      <EditArticleContainer >
+        <EditArticleForm onSubmit={onSubmit}>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Article Title: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              type="text"
+              required
+              value={article.title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setArticle({ ...article, title: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Article Body: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              as="textarea"
+              rows={15}
+              required
+              value={article.markdownArticle}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setArticle({ ...article, markdownArticle: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Description: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              as="textarea"
+              rows={3}
+              required
+              value={article.description}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setArticle({ ...article, description: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>tags: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              type="text"
+              value={article.tags}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setArticle({ ...article, tags: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Author: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              type="text"
+              value={article.author}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setArticle({ ...article, author: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <DatePicker
+              dateFormat="dd/MM/yyyy"
+              selected={date}
+              onChange={(value: Date) => {
+                setArticle({ ...article, date: value });
+                setDate(value);
+              }}
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleButton
+              type="submit"
+              variant="primary"
+            >Edit Article</EditArticleButton>
+          </EditArticleForm.Group>
+        </EditArticleForm>
+      </EditArticleContainer>
     </>
   );
 };

@@ -4,6 +4,9 @@ import { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
 
+import { ShowContainer, ShowJumbotron, ShowRow, ShowCol } from './styles';
+import Footer from "../../Components/Footer";
+
 interface Article {
   title: string;
   description: string;
@@ -43,12 +46,19 @@ function ViewArticle() {
   });
 
   return (
-    <div>
-      <h1>{article.title}</h1>
-      <br />
-      <br />
-      <ReactMarkdown source={article.markdownArticle} />
-    </div>
+    <>
+      <ShowJumbotron fluid>
+        <h1>{article.title}</h1>
+      </ShowJumbotron>
+      <ShowContainer>
+        <ShowRow>
+          <ShowCol>
+            <ReactMarkdown source={article.markdownArticle} />
+          </ShowCol>
+        </ShowRow>
+      </ShowContainer>
+      <Footer />
+    </>
   );
 }
 

@@ -14,7 +14,12 @@ export const HomeJumbotron = styled(Jumbotron)`
 export const HomeRow = styled(Row)`
 `;
 export const HomeCol = styled(Col)`
-padding: 20px;
+  padding: 20px;
+  text-align: center;
+  a {
+    textDecoration: none;
+    color: #f3f3f3;
+  }
 `;
 
 export const HomeCard = styled(Card)`
@@ -31,6 +36,8 @@ export const HomeCard = styled(Card)`
     text-align: justify;
   }
 
+`;
 
-
+export const AdContainer = styled.div`
+  padding: 48px;
 `;

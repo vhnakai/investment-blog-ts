@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
               </DashboardCard.Header>
               <DashboardCard.Body>
                 <Link
-                  to={'/ ' + article.slug}
+                  to={'/' + article.slug}
                   style={{ textDecoration: 'none' }}
                 >
                   <DashboardCard.Title>
