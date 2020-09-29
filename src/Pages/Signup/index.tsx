@@ -8,7 +8,7 @@ interface User {
   password: string;
 }
 
-const Register: React.FC = () => {
+const Signup: React.FC = () => {
   const [user, setUser] = useState<User>({
     name: '',
     email: '',
@@ -38,8 +38,6 @@ const Register: React.FC = () => {
   return (
     <>
       <h3>Register</h3>
-      {console.log('teste')}
-
       <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label>Nome: </Form.Label>
@@ -87,4 +85,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Signup;

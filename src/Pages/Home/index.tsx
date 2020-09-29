@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { HomeContainer, HomeCard, HomeJumbotron, HomeRow, HomeCol } from './styles';
+import { HomeContainer, HomeCard, HomeJumbotron, HomeRow, HomeCol, AdContainer } from './styles';
 import Footer from '../../Components/Footer';
 
 interface Article {
@@ -28,6 +28,7 @@ const Home: React.FC = () => {
       <HomeJumbotron fluid>
         <h1>Encontre investimentos em que você acredita!</h1>
       </HomeJumbotron>
+      <AdContainer/>
       <HomeContainer>
         <HomeRow>
           {(articles.length > 0) ? articles.map(article => (

@@ -12,6 +12,7 @@ export const DashboardCardColumns = styled(CardColumns)``;
 export const DashboardCard = styled(Card)`
   background: #222;
   color: #f3f3f3;
+
   a {
     textDecoration: 'none';
     color: #f3f3f3;
@@ -20,8 +21,6 @@ export const DashboardCard = styled(Card)`
   p {
     text-align: justify;
   }
-
-
 `;
 export const DashboardButton = styled(Button)`
   margin: 4px;
