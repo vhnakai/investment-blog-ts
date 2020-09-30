@@ -15,11 +15,7 @@ const UploadImage: React.FC = () => {
           data.append('image', selectedFile);
       }
 
-      api.post('points', data);
-
-      alert('Ponto de Coleta criado!');
-
-
+      //api.post('points', data); saida para inserir no Mongo WIP
   }
 
   const handleFile = (file: File) => {
