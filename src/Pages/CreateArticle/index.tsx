@@ -3,7 +3,6 @@ import api from '../../services/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CreateArticleForm, CreateArticleButton, CreateArticleContainer, CreateArticleJumbotron } from './styles';
-import Dropzone from "../../Components/Dropzone";
 
 interface Article {
   title: string;
@@ -24,7 +23,6 @@ const CreateArticle: React.FC = () => {
     date: new Date(),
   });
   const [date, setDate] = useState<Date>(new Date());
-  const [selectedFile, setSelectedFile] = useState<File>();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,28 +38,6 @@ const CreateArticle: React.FC = () => {
       date: article.date,
     };
 
-    const { title, description, markdownArticle, author, date } = article;
-
-    const RegextedTags = article.tags.match(regex);
-
-    const data = new FormData();
-
-    data.append('title', title);
-    data.append('description', description);
-    data.append('markdownArticle', markdownArticle);
-    data.append('author', author);
-    data.append('date', date.toString());
-
-    if (RegextedTags) {
-      data.append('tags', JSON.stringify(RegextedTags));
-    }
-
-    if (selectedFile) {
-      data.append('image', selectedFile);
-    }
-
-    console.log(data);
-
     api
       .post('/articles/add', newArticle)
       .then(res => {
@@ -76,18 +52,7 @@ const CreateArticle: React.FC = () => {
     // window.location = '/';
   };
 
-  const handleFile = (file: File) => {
-    setSelectedFile(file);
-    // console.log(file);
 
-    const size = '1024';
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('size', size);
-    api.post('/images/add', formData).then(res => {
-      console.log(res);
-    });
-  };
 
   return (
     <>
@@ -151,9 +116,6 @@ const CreateArticle: React.FC = () => {
                 setArticle({ ...article, author: e.target.value })
               }
             />
-          </CreateArticleForm.Group>
-          <CreateArticleForm.Group>
-            <Dropzone onFileUploaded={handleFile} />
           </CreateArticleForm.Group>
           <CreateArticleForm.Group>
             <DatePicker

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../services/api';
-import { Form, Button } from 'react-bootstrap';
+import { ForgotPassForm, ForgotPassButton, ForgotPassContainer, ForgotPassJumbotron } from './styles';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,11 +22,14 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <>
-      <h3>Recuperar senha</h3>
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Label>Email: </Form.Label>
-          <Form.Control
+      <ForgotPassJumbotron fluid>
+        <h3>Recuperar senha</h3>
+      </ForgotPassJumbotron>
+      <ForgotPassContainer>
+        <ForgotPassForm onSubmit={onSubmit}>
+          <ForgotPassForm.Group>
+            <ForgotPassForm.Label>Email:  </ForgotPassForm.Label>
+            <ForgotPassForm.Control
             type="text"
             placeholder="email"
             required
@@ -35,15 +38,17 @@ const ForgotPassword: React.FC = () => {
               setEmail(e.target.value)
             }
           />
-        </Form.Group>
-
-        <Form.Group>
-          <Button type="submit" variant="primary">
+          </ForgotPassForm.Group>
+          <ForgotPassForm.Group>
+            <ForgotPassButton type="submit" variant="primary">
             Recuperar
-          </Button>
-        </Form.Group>
-      </Form>
+            </ForgotPassButton>
+          </ForgotPassForm.Group>
+        </ForgotPassForm>
+      </ForgotPassContainer>
     </>
+
+
   );
 };
 
