@@ -38,7 +38,6 @@ const CreateArticle: React.FC = () => {
       tags: article.tags.match(regex),
       author: article.author,
       date: article.date,
-
     };
 
     const { title, description, markdownArticle, author, date } = article;
@@ -77,12 +76,25 @@ const CreateArticle: React.FC = () => {
     // window.location = '/';
   };
 
+  const handleFile = (file: File) => {
+    setSelectedFile(file);
+    // console.log(file);
+
+    const size = '1024';
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('size', size);
+    api.post('/images/add', formData).then(res => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <CreateArticleJumbotron fluid>
         <h3>Create New Article</h3>
       </CreateArticleJumbotron>
-      <CreateArticleContainer >
+      <CreateArticleContainer>
         <CreateArticleForm onSubmit={onSubmit}>
           <CreateArticleForm.Group>
             <CreateArticleForm.Label>Article Title: </CreateArticleForm.Label>
@@ -141,7 +153,7 @@ const CreateArticle: React.FC = () => {
             />
           </CreateArticleForm.Group>
           <CreateArticleForm.Group>
-            <Dropzone onFileUploaded={setSelectedFile} />
+            <Dropzone onFileUploaded={handleFile} />
           </CreateArticleForm.Group>
           <CreateArticleForm.Group>
             <DatePicker
