@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../services/api';
 import 'react-datepicker/dist/react-datepicker.css';
+import {Col} from 'react-bootstrap';
 import { CreateArticleForm, CreateArticleButton, CreateArticleContainer, CreateArticleJumbotron } from './styles';
 
 interface Article {
@@ -91,45 +92,44 @@ const CreateArticle: React.FC = () => {
               }
             />
           </CreateArticleForm.Group>
-
-          <CreateArticleForm.Group>
-            <CreateArticleForm.Label>Visibilidade: </CreateArticleForm.Label>
-            <CreateArticleForm.Control
-              as='select'
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
-              {
-                visibilityOptions.map(
-                  (r, i ) => (
-                    <option
-                      key={i}
-                      value={r.value}
-                    >
-                      {r.label}
-                    </option>
+          <CreateArticleForm.Row>
+            <CreateArticleForm.Group as={Col}>
+              <CreateArticleForm.Label>Visibilidade: </CreateArticleForm.Label>
+              <CreateArticleForm.Control
+                as='select'
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
+                {
+                  visibilityOptions.map(
+                    (r, i ) => (
+                      <option
+                        key={i}
+                        value={r.value}
+                      >
+                        {r.label}
+                      </option>
+                    )
                   )
-                )
-              }
-            </CreateArticleForm.Control>
-          </CreateArticleForm.Group>
-          <CreateArticleForm.Group>
-            <CreateArticleForm.Label>Estado: </CreateArticleForm.Label>
-            <CreateArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
-              {
-                stateOptions.map(
-                  (r, i ) => (
-                    <option
-                      key={i}
-                      value={r.value}
-                    >
-                      {r.label}
-                    </option>
+                }
+              </CreateArticleForm.Control>
+            </CreateArticleForm.Group>
+            <CreateArticleForm.Group as={Col}>
+              <CreateArticleForm.Label>Estado: </CreateArticleForm.Label>
+              <CreateArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
+                {
+                  stateOptions.map(
+                    (r, i ) => (
+                      <option
+                        key={i}
+                        value={r.value}
+                      >
+                        {r.label}
+                      </option>
+                    )
                   )
-                )
-              }
-            </CreateArticleForm.Control>
-          </CreateArticleForm.Group>
-
-
+                }
+              </CreateArticleForm.Control>
+            </CreateArticleForm.Group>
+          </CreateArticleForm.Row>
           <CreateArticleForm.Group>
             <CreateArticleButton type="submit" variant="primary">
               Create Article

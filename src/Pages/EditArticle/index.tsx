@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
+import { Col } from "react-bootstrap";
 import { EditArticleForm, EditArticleButton, EditArticleContainer, EditArticleJumbotron } from './styles';
 
 interface Article {
@@ -88,6 +89,8 @@ const EditArticle: React.FC = () => {
       tags: article.tags.match(regex),
       author: article.author,
       date: article.date,
+      visibility: selectedVisibilityOption,
+      state: selectedStateOption,
     };
 
     console.log(newArticle);
@@ -176,43 +179,44 @@ const EditArticle: React.FC = () => {
               }}
             />
           </EditArticleForm.Group>
-          <EditArticleForm.Group>
-            <EditArticleForm.Label>Visibilidade: </EditArticleForm.Label>
-            <EditArticleForm.Control
-              as='select'
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
-              {
-                visibilityOptions.map(
-                  (r, i ) => (
-                    <option
-                      key={i}
-                      value={r.value}
-                    >
-                      {r.label}
-                    </option>
+          <EditArticleForm.Row>
+            <EditArticleForm.Group as={Col}>
+              <EditArticleForm.Label>Visibilidade: </EditArticleForm.Label>
+              <EditArticleForm.Control
+                as='select'
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
+                {
+                  visibilityOptions.map(
+                    (r, i ) => (
+                      <option
+                        key={i}
+                        value={r.value}
+                      >
+                        {r.label}
+                      </option>
+                    )
                   )
-                )
-              }
-            </EditArticleForm.Control>
-          </EditArticleForm.Group>
-          <EditArticleForm.Group>
-            <EditArticleForm.Label>Estado: </EditArticleForm.Label>
-            <EditArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
-              {
-                stateOptions.map(
-                  (r, i ) => (
-                    <option
-                      key={i}
-                      value={r.value}
-                    >
-                      {r.label}
-                    </option>
+                }
+              </EditArticleForm.Control>
+            </EditArticleForm.Group>
+            <EditArticleForm.Group as={Col}>
+              <EditArticleForm.Label>Estado: </EditArticleForm.Label>
+              <EditArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
+                {
+                  stateOptions.map(
+                    (r, i ) => (
+                      <option
+                        key={i}
+                        value={r.value}
+                      >
+                        {r.label}
+                      </option>
+                    )
                   )
-                )
-              }
-            </EditArticleForm.Control>
-          </EditArticleForm.Group>
-
+                }
+              </EditArticleForm.Control>
+            </EditArticleForm.Group>
+          </EditArticleForm.Row>
           <EditArticleForm.Group>
             <EditArticleButton
               type="submit"
