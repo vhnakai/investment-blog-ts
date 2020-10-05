@@ -1,28 +1,41 @@
 import React, { useState } from 'react';
 import api from '../../services/api';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CreateArticleForm, CreateArticleButton, CreateArticleContainer, CreateArticleJumbotron } from './styles';
 
 interface Article {
   title: string;
-  description: string;
-  markdownArticle: string;
-  tags: string;
   author: string;
-  date: Date;
+  visibility: 'ALL' | 'EDITORS' | 'USERS' ;
+  state: 'EDITING' | 'PUBLISHED' ;
 }
 
+interface OptionType {
+  value: string;
+  label: string;
+}
+
+const visibilityOptions: OptionType[] = [
+  { value: 'ALL', label: 'Todos' },
+  { value: 'EDITORS', label: 'Editores' },
+  { value: 'USERS', label: 'Assinantes' },
+]
+
+const stateOptions: OptionType[] = [
+  { value: 'EDITING', label: 'Editando' },
+  { value: 'PUBLISHED', label: 'Publicado' },
+]
+
 const CreateArticle: React.FC = () => {
+
   const [article, setArticle] = useState<Article>({
     title: '',
-    description: '',
-    markdownArticle: '',
-    tags: '',
     author: '',
-    date: new Date(),
+    visibility: 'EDITORS',
+    state: 'EDITING',
   });
-  const [date, setDate] = useState<Date>(new Date());
+  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
+  const [selectedStateOption, setSelectedStateOption] = useState('');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,11 +44,9 @@ const CreateArticle: React.FC = () => {
 
     const newArticle = {
       title: article.title,
-      description: article.description,
-      markdownArticle: article.markdownArticle,
-      tags: article.tags.match(regex),
       author: article.author,
-      date: article.date,
+      visibility: selectedVisibilityOption,
+      state: selectedStateOption
     };
 
     api
@@ -51,8 +62,6 @@ const CreateArticle: React.FC = () => {
 
     // window.location = '/';
   };
-
-
 
   return (
     <>
@@ -73,41 +82,6 @@ const CreateArticle: React.FC = () => {
             />
           </CreateArticleForm.Group>
           <CreateArticleForm.Group>
-            <CreateArticleForm.Label>Article Body: </CreateArticleForm.Label>
-            <CreateArticleForm.Control
-              as="textarea"
-              rows={15}
-              required
-              className="form-control"
-              value={article.markdownArticle}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setArticle({ ...article, markdownArticle: e.target.value })
-              }
-            />
-          </CreateArticleForm.Group>
-          <CreateArticleForm.Group>
-            <CreateArticleForm.Label>Description: </CreateArticleForm.Label>
-            <CreateArticleForm.Control
-              as="textarea"
-              rows={6}
-              required
-              value={article.description}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                setArticle({ ...article, description: e.target.value })
-              }
-            />
-          </CreateArticleForm.Group>
-          <CreateArticleForm.Group>
-            <CreateArticleForm.Label>tags: </CreateArticleForm.Label>
-            <CreateArticleForm.Control
-              type="text"
-              value={article.tags}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setArticle({ ...article, tags: e.target.value })
-              }
-            />
-          </CreateArticleForm.Group>
-          <CreateArticleForm.Group>
             <CreateArticleForm.Label>Author: </CreateArticleForm.Label>
             <CreateArticleForm.Control
               type="text"
@@ -117,16 +91,44 @@ const CreateArticle: React.FC = () => {
               }
             />
           </CreateArticleForm.Group>
+
           <CreateArticleForm.Group>
-            <DatePicker
-              dateFormat="dd/MM/yyyy"
-              selected={date}
-              onChange={(value: Date) => {
-                setArticle({ ...article, date: value });
-                setDate(value);
-              }}
-            />
+            <CreateArticleForm.Label>Visibilidade: </CreateArticleForm.Label>
+            <CreateArticleForm.Control
+              as='select'
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
+              {
+                visibilityOptions.map(
+                  (r, i ) => (
+                    <option
+                      key={i}
+                      value={r.value}
+                    >
+                      {r.label}
+                    </option>
+                  )
+                )
+              }
+            </CreateArticleForm.Control>
           </CreateArticleForm.Group>
+          <CreateArticleForm.Group>
+            <CreateArticleForm.Label>Estado: </CreateArticleForm.Label>
+            <CreateArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
+              {
+                stateOptions.map(
+                  (r, i ) => (
+                    <option
+                      key={i}
+                      value={r.value}
+                    >
+                      {r.label}
+                    </option>
+                  )
+                )
+              }
+            </CreateArticleForm.Control>
+          </CreateArticleForm.Group>
+
 
           <CreateArticleForm.Group>
             <CreateArticleButton type="submit" variant="primary">
