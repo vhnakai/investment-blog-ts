@@ -14,12 +14,32 @@ interface Article {
   author: string;
   date: Date;
   isDataImported: boolean;
+  visibility: 'ALL' | 'EDITORS' | 'USERS' ;
+  state: 'EDITING' | 'PUBLISHED' ;
 }
+
+interface OptionType {
+  value: string;
+  label: string;
+}
+
+const visibilityOptions: OptionType[] = [
+  { value: 'ALL', label: 'Todos' },
+  { value: 'EDITORS', label: 'Editores' },
+  { value: 'USERS', label: 'Assinantes' },
+]
+
+const stateOptions: OptionType[] = [
+  { value: 'EDITING', label: 'Editando' },
+  { value: 'PUBLISHED', label: 'Publicado' },
+]
 
 const EditArticle: React.FC = () => {
   let params: any = useParams();
 
   const [date, setDate] = useState<Date>(new Date());
+  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
+  const [selectedStateOption, setSelectedStateOption] = useState('');
   const [article, setArticle] = useState<Article>({
     title: '',
     description: '',
@@ -28,6 +48,8 @@ const EditArticle: React.FC = () => {
     author: '',
     date: new Date(),
     isDataImported: false,
+    visibility: 'EDITORS',
+    state: 'EDITING',
   });
 
   useEffect(() => {
@@ -43,6 +65,8 @@ const EditArticle: React.FC = () => {
             author: response.data.author,
             date: new Date(response.data.date.toString()),
             isDataImported: true,
+            visibility: response.data.visibility,
+            state: response.data.state
           });
           setDate(new Date(response.data.date.toString()));
         })
@@ -152,6 +176,43 @@ const EditArticle: React.FC = () => {
               }}
             />
           </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Visibilidade: </EditArticleForm.Label>
+            <EditArticleForm.Control
+              as='select'
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
+              {
+                visibilityOptions.map(
+                  (r, i ) => (
+                    <option
+                      key={i}
+                      value={r.value}
+                    >
+                      {r.label}
+                    </option>
+                  )
+                )
+              }
+            </EditArticleForm.Control>
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Estado: </EditArticleForm.Label>
+            <EditArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
+              {
+                stateOptions.map(
+                  (r, i ) => (
+                    <option
+                      key={i}
+                      value={r.value}
+                    >
+                      {r.label}
+                    </option>
+                  )
+                )
+              }
+            </EditArticleForm.Control>
+          </EditArticleForm.Group>
+
           <EditArticleForm.Group>
             <EditArticleButton
               type="submit"
