@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
           variant="danger"
           onClick={() =>
             api
-              .delete('auth/logout')
+              .delete('auth/')
               .then(res => {
                 console.log(res.data);
                 window.location.reload();

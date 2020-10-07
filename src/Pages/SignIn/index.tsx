@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { SignInContainer, SignInRow, SignInCol, SignInForm, SignInButton, WelcomeContainer } from './styles';
-import { auth } from '../../services/auth';
+import {
+  SignInContainer,
+  SignInRow,
+  SignInCol,
+  SignInForm,
+  SignInButton,
+  WelcomeContainer,
+} from './styles';
+import { signin } from '../../services/auth';
 
 interface User {
   email: string;
@@ -15,7 +22,7 @@ const SignIn: React.FC = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    auth(user.email, user.password).then(res => {
+    signin(user.email, user.password).then(res => {
       console.log(res);
       window.location.href = '/';
     });

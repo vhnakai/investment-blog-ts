@@ -20,23 +20,24 @@ const visibilityOptions: OptionType[] = [
   { value: 'ALL', label: 'Todos' },
   { value: 'EDITORS', label: 'Editores' },
   { value: 'USERS', label: 'Assinantes' },
-]
+];
 
 const stateOptions: OptionType[] = [
   { value: 'EDITING', label: 'Editando' },
   { value: 'PUBLISHED', label: 'Publicado' },
-]
+];
 
 const CreateArticle: React.FC = () => {
-
   const [article, setArticle] = useState<Article>({
     title: '',
     author: '',
     visibility: 'EDITORS',
     state: 'EDITING',
   });
-  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
-  const [selectedStateOption, setSelectedStateOption] = useState('');
+  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState(
+    'ALL',
+  );
+  const [selectedStateOption, setSelectedStateOption] = useState('EDITING');
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,11 +48,11 @@ const CreateArticle: React.FC = () => {
       title: article.title,
       author: article.author,
       visibility: selectedVisibilityOption,
-      state: selectedStateOption
+      state: selectedStateOption,
     };
 
     api
-      .post('/articles/add', newArticle)
+      .post('/articles/', newArticle)
       .then(res => {
         console.log(res.data);
 
