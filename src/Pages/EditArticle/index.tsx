@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
-import { Col } from "react-bootstrap";
-import { EditArticleForm, EditArticleButton, EditArticleContainer, EditArticleJumbotron } from './styles';
+import { Col , Image } from "react-bootstrap";
+import { EditArticleForm, EditArticleButton, EditArticleContainer, EditArticleJumbotron , ItemGrid} from './styles';
 
 interface Article {
   title: string;
@@ -17,6 +17,11 @@ interface Article {
   isDataImported: boolean;
   visibility: 'ALL' | 'EDITORS' | 'USERS' ;
   state: 'EDITING' | 'PUBLISHED' ;
+}
+interface Image {
+  path: string;
+  articles: string;
+  tags: string;
 }
 
 interface OptionType {
@@ -39,6 +44,9 @@ const EditArticle: React.FC = () => {
   let params: any = useParams();
 
   const [date, setDate] = useState<Date>(new Date());
+  const [images, setImages] = useState<Image[]>([]);
+
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
   const [selectedStateOption, setSelectedStateOption] = useState('');
   const [article, setArticle] = useState<Article>({
@@ -52,6 +60,13 @@ const EditArticle: React.FC = () => {
     visibility: 'EDITORS',
     state: 'EDITING',
   });
+
+  useEffect(() => {
+    api.get('images').then(res => {
+        setImages(res.data);
+    })
+  }, []);
+
 
   useEffect(() => {
     if (!article.isDataImported) {
@@ -76,6 +91,18 @@ const EditArticle: React.FC = () => {
         });
     }
   });
+
+  /*function handleSelectItem(id : number){
+
+    const alreadySelected = selectedItems.findIndex(item => item === id);
+
+    if(alreadySelected >= 0){
+        const filteredItems = selectedItems.filter(item => item !== id)
+        setSelectedItems(filteredItems);
+    } else {
+        setSelectedItems([...selectedItems, id]);
+    }
+  }*/
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -169,6 +196,18 @@ const EditArticle: React.FC = () => {
               }
             />
           </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Imagens disponiveis</EditArticleForm.Label>
+
+            <ItemGrid>
+            {images.map((image , i)=> (
+              <li  key={i}>
+                <Image src={image.path} rounded/>
+              </li>
+                    ))}
+            </ItemGrid>
+
+             </EditArticleForm.Group>
           <EditArticleForm.Group>
             <DatePicker
               dateFormat="dd/MM/yyyy"
