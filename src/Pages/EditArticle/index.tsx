@@ -18,11 +18,6 @@ interface Article {
   visibility: 'ALL' | 'EDITORS' | 'USERS' ;
   state: 'EDITING' | 'PUBLISHED' ;
 }
-interface Image {
-  path: string;
-  articles: string;
-  tags: string;
-}
 
 interface OptionType {
   value: string;
@@ -44,7 +39,7 @@ const EditArticle: React.FC = () => {
   let params: any = useParams();
 
   const [date, setDate] = useState<Date>(new Date());
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
@@ -202,7 +197,7 @@ const EditArticle: React.FC = () => {
             <ItemGrid>
             {images.map((image , i)=> (
               <li  key={i}>
-                <Image src={image.path} rounded/>
+                <Image src={image} rounded/>
               </li>
                     ))}
             </ItemGrid>
