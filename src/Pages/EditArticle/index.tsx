@@ -79,15 +79,15 @@ const EditArticle: React.FC = () => {
         .get('/articles/' + params.id) //getting the id from url
         .then((response: AxiosResponse) => {
           setArticle({
-            title: response.data.title,
-            description: response.data.description,
-            markdownArticle: response.data.markdownArticle,
-            tags: response.data.tags.join([', ']),
-            author: response.data.author,
-            date: new Date(response.data.date.toString()),
+            title: response.data.article.title,
+            description: response.data.article.description,
+            markdownArticle: response.data.article.markdownArticle,
+            tags: response.data.article.tags.join([', ']),
+            author: response.data.article.author,
+            date: new Date(response.data.article.date.toString()),
             isDataImported: true,
-            visibility: response.data.visibility,
-            state: response.data.state,
+            visibility: response.data.article.visibility,
+            state: response.data.article.state,
           });
           setDate(new Date(response.data.date.toString()));
         })
