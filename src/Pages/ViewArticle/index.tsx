@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import { AxiosResponse } from "axios";
-import { useParams } from "react-router-dom";
-import api from "../../services/api";
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { AxiosResponse } from 'axios';
+import { useParams } from 'react-router-dom';
+import api from '../../services/api';
 
 import { ShowContainer, ShowJumbotron, ShowRow, ShowCol } from './styles';
-import Footer from "../../Components/Footer";
+import Footer from '../../Components/Footer';
 
 interface Article {
   title: string;
@@ -19,25 +19,25 @@ interface Article {
 const ViewArticle: React.FC = () => {
   let params: any = useParams();
   const [article, setArticle] = useState<Article>({
-    title: "",
-    description: "",
-    markdownArticle: "",
-    tags: "",
-    author: "",
+    title: '',
+    description: '',
+    markdownArticle: '',
+    tags: '',
+    author: '',
     date: new Date(),
   });
 
   useEffect(() => {
     api
-      .get("/articles/" + params.id)
+      .get('/articles/' + params.id)
       .then((response: AxiosResponse) => {
         setArticle({
-          title: response.data.title,
-          description: response.data.description,
-          markdownArticle: response.data.markdownArticle,
-          tags: response.data.tags[0],
-          author: response.data.author,
-          date: new Date(response.data.date.toString()),
+          title: response.data.article.title,
+          description: response.data.article.description,
+          markdownArticle: response.data.article.markdownArticle,
+          tags: response.data.article.tags[0],
+          author: response.data.article.author,
+          date: new Date(response.data.article.date.toString()),
         });
       })
       .catch(function (error) {
@@ -60,6 +60,6 @@ const ViewArticle: React.FC = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default ViewArticle;

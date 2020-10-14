@@ -4,8 +4,14 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
-import { Col , Image } from "react-bootstrap";
-import { EditArticleForm, EditArticleButton, EditArticleContainer, EditArticleJumbotron , ItemGrid} from './styles';
+import { Col, Image } from 'react-bootstrap';
+import {
+  EditArticleForm,
+  EditArticleButton,
+  EditArticleContainer,
+  EditArticleJumbotron,
+  ItemGrid,
+} from './styles';
 
 interface Article {
   title: string;
@@ -15,8 +21,8 @@ interface Article {
   author: string;
   date: Date;
   isDataImported: boolean;
-  visibility: 'ALL' | 'EDITORS' | 'USERS' ;
-  state: 'EDITING' | 'PUBLISHED' ;
+  visibility: 'ALL' | 'EDITORS' | 'USERS';
+  state: 'EDITING' | 'PUBLISHED';
 }
 
 interface OptionType {
@@ -28,15 +34,16 @@ const visibilityOptions: OptionType[] = [
   { value: 'ALL', label: 'Todos' },
   { value: 'EDITORS', label: 'Editores' },
   { value: 'USERS', label: 'Assinantes' },
-]
+];
 
 const stateOptions: OptionType[] = [
   { value: 'EDITING', label: 'Editando' },
   { value: 'PUBLISHED', label: 'Publicado' },
-]
+];
 
 const EditArticle: React.FC = () => {
   let params: any = useParams();
+  const DEFAULT_IMG = '';
 
   const [date, setDate] = useState<Date>(new Date());
   const [images, setImages] = useState<string[]>([]);
@@ -58,10 +65,13 @@ const EditArticle: React.FC = () => {
 
   useEffect(() => {
     api.get('images').then(res => {
-        setImages(res.data);
-    })
+      setImages(
+        res.data.images.map((image: { url: any }) =>
+          typeof image.url === 'string' ? image.url : DEFAULT_IMG,
+        ),
+      );
+    });
   }, []);
-
 
   useEffect(() => {
     if (!article.isDataImported) {
@@ -77,7 +87,7 @@ const EditArticle: React.FC = () => {
             date: new Date(response.data.date.toString()),
             isDataImported: true,
             visibility: response.data.visibility,
-            state: response.data.state
+            state: response.data.state,
           });
           setDate(new Date(response.data.date.toString()));
         })
@@ -118,7 +128,7 @@ const EditArticle: React.FC = () => {
     console.log(newArticle);
 
     api
-      .post('/articles/update/' + params.id, newArticle)
+      .post('/articles/' + params.id, newArticle)
       .then((res: AxiosResponse) => {
         console.log(res.data);
 
@@ -134,7 +144,7 @@ const EditArticle: React.FC = () => {
       <EditArticleJumbotron fluid>
         <h3>Edit a Article</h3>
       </EditArticleJumbotron>
-      <EditArticleContainer >
+      <EditArticleContainer>
         <EditArticleForm onSubmit={onSubmit}>
           <EditArticleForm.Group>
             <EditArticleForm.Label>Article Title: </EditArticleForm.Label>
@@ -195,14 +205,13 @@ const EditArticle: React.FC = () => {
             <EditArticleForm.Label>Imagens disponiveis</EditArticleForm.Label>
 
             <ItemGrid>
-            {images.map((image , i)=> (
-              <li  key={i}>
-                <Image src={image} rounded/>
-              </li>
-                    ))}
+              {images.map((image, i) => (
+                <li key={i}>
+                  <Image src={image} rounded />
+                </li>
+              ))}
             </ItemGrid>
-
-             </EditArticleForm.Group>
+          </EditArticleForm.Group>
           <EditArticleForm.Group>
             <DatePicker
               dateFormat="dd/MM/yyyy"
@@ -217,45 +226,38 @@ const EditArticle: React.FC = () => {
             <EditArticleForm.Group as={Col}>
               <EditArticleForm.Label>Visibilidade: </EditArticleForm.Label>
               <EditArticleForm.Control
-                as='select'
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedVisibilityOption(e.target.value)}>
-                {
-                  visibilityOptions.map(
-                    (r, i ) => (
-                      <option
-                        key={i}
-                        value={r.value}
-                      >
-                        {r.label}
-                      </option>
-                    )
-                  )
+                as="select"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setSelectedVisibilityOption(e.target.value)
                 }
+              >
+                {visibilityOptions.map((r, i) => (
+                  <option key={i} value={r.value}>
+                    {r.label}
+                  </option>
+                ))}
               </EditArticleForm.Control>
             </EditArticleForm.Group>
             <EditArticleForm.Group as={Col}>
               <EditArticleForm.Label>Estado: </EditArticleForm.Label>
-              <EditArticleForm.Control as='select' onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStateOption(e.target.value)} >
-                {
-                  stateOptions.map(
-                    (r, i ) => (
-                      <option
-                        key={i}
-                        value={r.value}
-                      >
-                        {r.label}
-                      </option>
-                    )
-                  )
+              <EditArticleForm.Control
+                as="select"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setSelectedStateOption(e.target.value)
                 }
+              >
+                {stateOptions.map((r, i) => (
+                  <option key={i} value={r.value}>
+                    {r.label}
+                  </option>
+                ))}
               </EditArticleForm.Control>
             </EditArticleForm.Group>
           </EditArticleForm.Row>
           <EditArticleForm.Group>
-            <EditArticleButton
-              type="submit"
-              variant="primary"
-            >Edit Article</EditArticleButton>
+            <EditArticleButton type="submit" variant="primary">
+              Edit Article
+            </EditArticleButton>
           </EditArticleForm.Group>
         </EditArticleForm>
       </EditArticleContainer>

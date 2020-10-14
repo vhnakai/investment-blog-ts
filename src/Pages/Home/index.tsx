@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import { HomeContainer, HomeCard, HomeJumbotron, HomeRow, HomeCol, AdContainer } from './styles';
+import {
+  HomeContainer,
+  HomeCard,
+  HomeJumbotron,
+  HomeRow,
+  HomeCol,
+  AdContainer,
+} from './styles';
 import Footer from '../../Components/Footer';
 
 interface Article {
@@ -18,9 +25,7 @@ const Home: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    api.get('/articles/').then(res => {
-      setArticles(res.data);
-    });
+    api.get('/articles/').then(res => setArticles(res.data.articles));
   }, []);
 
   return (
@@ -28,35 +33,39 @@ const Home: React.FC = () => {
       <HomeJumbotron fluid>
         <h1>Encontre investimentos em que você acredita!</h1>
       </HomeJumbotron>
-      <AdContainer/>
+      <AdContainer />
       <HomeContainer>
         <HomeRow>
-          {(articles.length > 0) ? articles.map(article => (
-
-            <HomeCol key={article._id} sm={6}>
-              <Link to={'/' + article.slug}>
-                <HomeCard className="text-center h-100">
-                  <HomeCard.Body>
-                    <HomeCard.Title>{article.title}</HomeCard.Title>
-                    <HomeCard.Text>
-                      <p>{article.description}</p>
-                      {/* <div className="small">
-                    <ReactMarkdown
-                      className="small"
-                      source={article.markdownArticle}
-                    />
-                  </div> */}
-                    </HomeCard.Text>
-
-                  </HomeCard.Body>
-                  <HomeCard.Footer>
-                    {new Date(article.date).toLocaleString()}
-                  </HomeCard.Footer>
-                </HomeCard>
-              </Link>
+          {articles.length > 0 ? (
+            articles.map(article => (
+              <HomeCol key={article._id} sm={6}>
+                <Link to={'/' + article.slug}>
+                  <HomeCard className="text-center h-100">
+                    <HomeCard.Body>
+                      <HomeCard.Title>{article.title}</HomeCard.Title>
+                      <HomeCard.Text>
+                        <p>{article.description}</p>
+                        {/* <div className="small">
+                              <ReactMarkdown
+                                className="small"
+                                source={article.markdownArticle}
+                              />
+                            </div> */}
+                      </HomeCard.Text>
+                    </HomeCard.Body>
+                    <HomeCard.Footer>
+                      {new Date(article.date).toLocaleString()}
+                    </HomeCard.Footer>
+                  </HomeCard>
+                </Link>
+              </HomeCol>
+            ))
+          ) : (
+            <HomeCol>
+              {' '}
+              <h1>Não encontramos nenhum artigo.</h1>{' '}
             </HomeCol>
-          )) : <HomeCol> <h1>Não encontramos nenhum artigo.</h1> </HomeCol>}
-
+          )}
         </HomeRow>
       </HomeContainer>
       <Footer />

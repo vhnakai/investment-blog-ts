@@ -4,6 +4,7 @@ import Dashboard from '../Pages/Dashboard';
 import CreateArticle from '../Pages/CreateArticle';
 import EditArticle from '../Pages/EditArticle';
 import ViewArticle from '../Pages/ViewArticle';
+import UploadImage from '../Pages/UploadImage';
 import Singup from '../Pages/Signup';
 import { Route, Switch } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ const Routes: React.FC = () => (
     <Route path="/create" component={CreateArticle} />
     <Route path="/edit/:id" component={EditArticle} />
     <Route path="/singup" component={Singup} />
+    <Route path="/UploadImage" component={UploadImage} />
     <Route path="/:id" component={ViewArticle} />
   </Switch>
 );

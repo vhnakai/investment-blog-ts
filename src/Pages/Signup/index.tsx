@@ -24,7 +24,7 @@ const Signup: React.FC = () => {
     };
 
     api
-      .post('/users/register', newUser)
+      .post('/users/', newUser)
       .then(res => {
         console.log(res.data);
 

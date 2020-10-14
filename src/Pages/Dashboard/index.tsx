@@ -23,8 +23,9 @@ const Dashboard: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
+    console.log('useEffect');
     api.get('/articles/').then(res => {
-      setArticles(res.data);
+      setArticles(res.data.articles);
     });
   }, []);
 
@@ -42,7 +43,7 @@ const Dashboard: React.FC = () => {
           variant="danger"
           onClick={() =>
             api
-              .delete('auth/')
+              .delete('/auth')
               .then(res => {
                 console.log(res.data);
                 window.location.reload();
