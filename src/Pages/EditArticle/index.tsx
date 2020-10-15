@@ -48,7 +48,7 @@ const EditArticle: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [images, setImages] = useState<string[]>([]);
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  //const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
   const [selectedStateOption, setSelectedStateOption] = useState('');
   const [article, setArticle] = useState<Article>({
@@ -138,6 +138,7 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
+  // TODO: Translate to Portuguese All Label and Placeholder
 
   return (
     <>
