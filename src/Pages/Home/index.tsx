@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           {articles.length > 0 ? (
             articles.map(article => (
               <HomeCol key={article._id} sm={6}>
-                <Link to={'/' + article.slug}>
+                <Link to={'/view/' + article.slug}>
                   <HomeCard className="text-center h-100">
                     <HomeCard.Body>
                       <HomeCard.Title>{article.title}</HomeCard.Title>

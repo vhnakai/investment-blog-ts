@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     console.log('useEffect');
-    api.get('/articles/').then(res => {
+    api.get('/articles/all').then(res => {
       setArticles(res.data.articles);
     });
   }, []);
@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
               </DashboardCard.Header>
               <DashboardCard.Body>
                 <Link
-                  to={'/' + article.slug}
+                  to={'/view/' + article.slug}
                   style={{ textDecoration: 'none' }}
                 >
                   <DashboardCard.Title>

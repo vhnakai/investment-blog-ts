@@ -41,7 +41,7 @@ const SignIn: React.FC = () => {
             <SignInForm.Group>
               <SignInForm.Control
                 type="text"
-                placeholder="Login"
+                placeholder="Email"
                 required
                 value={user.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
