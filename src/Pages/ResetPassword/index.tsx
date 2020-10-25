@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 import { ForgotPassForm, ForgotPassButton, ForgotPassContainer, ForgotPassJumbotron } from './styles';
 
 const ResetPassword: React.FC = () => {
+
+  const params: any = useParams();
   const [password, setPassword] = useState('');
   const [confirmedPassword, setconfirmedPassword] = useState('');
+
+
 
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO Confirm Password Verification and Password Interface
     api
-      .post('/password/reset', password)
+      .post('/reset/' + params.id , password)
       .then(res => {
         console.log(res.data);
 
@@ -42,7 +47,7 @@ const ResetPassword: React.FC = () => {
               />
           </ForgotPassForm.Group>
           <ForgotPassForm.Group>
-            <ForgotPassForm.Label>Nova senha:  </ForgotPassForm.Label>
+            <ForgotPassForm.Label>Confirme a senha nova:  </ForgotPassForm.Label>
             <ForgotPassForm.Control
                 type="password"
                 placeholder="Confirme a senha"

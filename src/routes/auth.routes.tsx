@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import Dashboard from '../Pages/Dashboard';
 import CreateArticle from '../Pages/CreateArticle';
 import EditArticle from '../Pages/EditArticle';
