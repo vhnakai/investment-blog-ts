@@ -48,7 +48,7 @@ const EditArticle: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [images, setImages] = useState<string[]>([]);
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  //const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
   const [selectedStateOption, setSelectedStateOption] = useState('');
   const [article, setArticle] = useState<Article>({
@@ -138,16 +138,17 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
+  // TODO: Translate to Portuguese All Label and Placeholder
 
   return (
     <>
       <EditArticleJumbotron fluid>
-        <h3>Edit a Article</h3>
+        <h3>Editar o Artigo</h3>
       </EditArticleJumbotron>
       <EditArticleContainer>
         <EditArticleForm onSubmit={onSubmit}>
           <EditArticleForm.Group>
-            <EditArticleForm.Label>Article Title: </EditArticleForm.Label>
+            <EditArticleForm.Label>Titulo: </EditArticleForm.Label>
             <EditArticleForm.Control
               type="text"
               required
@@ -158,7 +159,7 @@ const EditArticle: React.FC = () => {
             />
           </EditArticleForm.Group>
           <EditArticleForm.Group>
-            <EditArticleForm.Label>Article Body: </EditArticleForm.Label>
+            <EditArticleForm.Label>Corpo: </EditArticleForm.Label>
             <EditArticleForm.Control
               as="textarea"
               rows={15}
@@ -170,7 +171,7 @@ const EditArticle: React.FC = () => {
             />
           </EditArticleForm.Group>
           <EditArticleForm.Group>
-            <EditArticleForm.Label>Description: </EditArticleForm.Label>
+            <EditArticleForm.Label>Descrição: </EditArticleForm.Label>
             <EditArticleForm.Control
               as="textarea"
               rows={3}
@@ -182,7 +183,7 @@ const EditArticle: React.FC = () => {
             />
           </EditArticleForm.Group>
           <EditArticleForm.Group>
-            <EditArticleForm.Label>tags: </EditArticleForm.Label>
+            <EditArticleForm.Label>Tags </EditArticleForm.Label>
             <EditArticleForm.Control
               type="text"
               value={article.tags}
@@ -192,7 +193,7 @@ const EditArticle: React.FC = () => {
             />
           </EditArticleForm.Group>
           <EditArticleForm.Group>
-            <EditArticleForm.Label>Author: </EditArticleForm.Label>
+            <EditArticleForm.Label>Autor: </EditArticleForm.Label>
             <EditArticleForm.Control
               type="text"
               value={article.author}
@@ -256,7 +257,7 @@ const EditArticle: React.FC = () => {
           </EditArticleForm.Row>
           <EditArticleForm.Group>
             <EditArticleButton type="submit" variant="primary">
-              Edit Article
+              Editar Artigo
             </EditArticleButton>
           </EditArticleForm.Group>
         </EditArticleForm>

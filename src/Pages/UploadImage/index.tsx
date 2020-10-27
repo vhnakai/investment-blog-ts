@@ -23,7 +23,6 @@ const UploadImage: React.FC = () => {
 
   const handleFile = (file: File) => {
     setSelectedFile(file);
-    // console.log(file);
 
     //if size is sent, the maximum dimention on any "side" of the image will be "size pixels"
     const size = '1024';

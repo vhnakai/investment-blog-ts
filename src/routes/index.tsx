@@ -12,7 +12,6 @@ const Routes: React.FC = () => {
     });
   }, []);
 
-  // console.log(isAuthenticated());
   return isAuthenticated ? <AuthRoutes /> : <AppRoutes />;
 };
 

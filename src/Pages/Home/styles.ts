@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Container, Jumbotron, Row, Col, Card } from 'react-bootstrap';
 
+
 export const HomeContainer = styled(Container)`
   justify-content: center;
   position: relative;
@@ -17,7 +18,7 @@ export const HomeCol = styled(Col)`
   padding: 20px;
   text-align: center;
   a {
-    textDecoration: none;
+    text-decoration: none;
     color: #f3f3f3;
   }
 `;
@@ -28,7 +29,7 @@ export const HomeCard = styled(Card)`
   color: #f3f3f3;
   text-align: center;
   a {
-    textDecoration: 'none';
+    text-decoration: 'none';
     color: #f3f3f3;
   }
 
@@ -41,3 +42,4 @@ export const HomeCard = styled(Card)`
 export const AdContainer = styled.div`
   padding: 48px;
 `;
+

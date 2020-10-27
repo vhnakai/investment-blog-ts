@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
+import { Nav  } from 'react-bootstrap';
 import { NavBar } from './styles';
 import { checkAuthenticated } from '../../services/auth';
 

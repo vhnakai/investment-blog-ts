@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AxiosResponse } from "axios";
 import api from '../../services/api';
 import {
   HomeContainer,
@@ -9,6 +10,8 @@ import {
   HomeCol,
   AdContainer,
 } from './styles';
+import SearchForm from '../../Components/SearchForm';
+
 import Footer from '../../Components/Footer';
 
 interface Article {
@@ -24,15 +27,31 @@ interface Article {
 const Home: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
 
+  const [searchText, setSearchText] = useState('');
+
   useEffect(() => {
     api.get('/articles/').then(res => setArticles(res.data.articles));
   }, []);
+
+  useEffect(() => {
+    api.get(`/articles?search=${searchText}`).then((response: AxiosResponse) => {
+      setArticles(response.data.articles);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  },[searchText]);
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchText(e.target.value);
+  }
 
   return (
     <>
       <HomeJumbotron fluid>
         <h1>Encontre investimentos em que você acredita!</h1>
       </HomeJumbotron>
+      <SearchForm onChange={handleSearchInput} value={searchText}/>
       <AdContainer />
       <HomeContainer>
         <HomeRow>
@@ -45,12 +64,6 @@ const Home: React.FC = () => {
                       <HomeCard.Title>{article.title}</HomeCard.Title>
                       <HomeCard.Text>
                         <p>{article.description}</p>
-                        {/* <div className="small">
-                              <ReactMarkdown
-                                className="small"
-                                source={article.markdownArticle}
-                              />
-                            </div> */}
                       </HomeCard.Text>
                     </HomeCard.Body>
                     <HomeCard.Footer>
