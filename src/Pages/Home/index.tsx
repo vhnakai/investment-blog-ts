@@ -11,6 +11,7 @@ import {
   AdContainer,
 } from './styles';
 import SearchForm from '../../Components/SearchForm';
+
 import Footer from '../../Components/Footer';
 
 interface Article {
