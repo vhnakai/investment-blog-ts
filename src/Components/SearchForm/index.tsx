@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form , FormControl} from 'react-bootstrap';
-
+import { StyledForm, StyledFormControl } from "./styles";
 interface SearchFormProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>)=>void;
   value: string;
@@ -9,9 +8,9 @@ interface SearchFormProps {
 const SearchForm: React.FC<SearchFormProps> = ({onChange, value}:SearchFormProps) => {
 
   return (
-      <Form inline>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={onChange} value={value}/>
-      </Form>
+      <StyledForm>
+        <StyledFormControl type="text" placeholder="Search" className="mr-sm-2" onChange={onChange} value={value}/>
+      </StyledForm>
   );
 };
 
