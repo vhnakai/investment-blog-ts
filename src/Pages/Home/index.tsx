@@ -10,8 +10,9 @@ import {
   HomeCol,
   AdContainer,
 } from './styles';
-import SearchForm from '../../Components/SearchForm';
 
+import CustomPagination  from "../../Components/CustomPagination";
+import SearchForm from '../../Components/SearchForm';
 import Footer from '../../Components/Footer';
 
 interface Article {
@@ -26,6 +27,7 @@ interface Article {
 
 const Home: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [page, setPage] = useState(1);
 
   const [searchText, setSearchText] = useState('');
 
@@ -46,6 +48,17 @@ const Home: React.FC = () => {
     setSearchText(e.target.value);
   }
 
+
+  const handlePaginate = (value: number) => {
+    setPage(value);
+  }
+
+  const indexOfLastPost = page * 10;
+  const indexOfFirstPost = indexOfLastPost - 10;
+  const currentPosts = articles.slice(indexOfFirstPost, indexOfLastPost);
+
+
+
   return (
     <>
       <HomeJumbotron fluid>
@@ -55,8 +68,8 @@ const Home: React.FC = () => {
       <AdContainer />
       <HomeContainer>
         <HomeRow>
-          {articles.length > 0 ? (
-            articles.map(article => (
+          {currentPosts.length > 0 ? (
+            currentPosts.map(article => (
               <HomeCol key={article._id} sm={6}>
                 <Link to={'/view/' + article.slug}>
                   <HomeCard className="text-center h-100">
@@ -75,11 +88,11 @@ const Home: React.FC = () => {
             ))
           ) : (
             <HomeCol>
-              {' '}
-              <h1>Não encontramos nenhum artigo.</h1>{' '}
+              <h1>Não encontramos nenhum artigo.</h1>
             </HomeCol>
           )}
         </HomeRow>
+        <CustomPagination totalPosts={articles.length} paginate={handlePaginate}/>
       </HomeContainer>
       <Footer />
     </>

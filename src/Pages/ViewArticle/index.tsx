@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import {FacebookProvider ,Comments } from 'react-facebook';
+import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 
 import { ShowContainer, ShowJumbotron, ShowRow, ShowCol } from './styles';
@@ -54,6 +55,10 @@ const ViewArticle: React.FC = () => {
         <ShowRow>
           <ShowCol>
             <ReactMarkdown source={article.markdownArticle} />
+            <FacebookProvider appId="123456789">
+              <Comments href="localhost"/>
+            </FacebookProvider>
+
           </ShowCol>
         </ShowRow>
       </ShowContainer>

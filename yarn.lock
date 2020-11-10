@@ -1809,10 +1809,18 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.0", "@types/react@^16.9.11", "@types/react@^16.9.35":
+"@types/react@*", "@types/react@^16.9.11", "@types/react@^16.9.35":
   version "16.9.49"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.49.tgz#09db021cf8089aba0cdb12a49f8021a69cce4872"
   integrity sha512-DtLFjSj0OYAdVLBbyjhuV9CdGVHCkHn2R+xr3XkBvK2rS1Y1tkc14XSGjYgm5Fjjr90AxH9tiSzc1pCFMGO06g==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^3.0.2"
+
+"@types/react@^16.9.56":
+  version "16.9.56"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
+  integrity sha512-gIkl4J44G/qxbuC6r2Xh+D3CGZpJ+NdWTItAPmZbR5mUS+JQ8Zvzpl0ea5qT/ZT3ZNTUcDKUVqV3xBE8wv/DyQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
@@ -9778,6 +9786,11 @@ react-facebook@^8.1.4:
     "@babel/runtime" "^7.7.2"
     can-use-dom "^0.1.0"
     react-spinner-children "^1.0.8"
+
+react-hook-form@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.11.0.tgz#db041861414799e002ea482e54da6f9bc452f1b0"
+  integrity sha512-YoiNCKSfrLv0CCK9fiVorNt1YM5xOV4Fo+O3e3CphS6N4xrXah3rJo1YIA34qSbIJwXgcsS2WOIb2K/Wb6e56A==
 
 react-icons@^3.11.0:
   version "3.11.0"
