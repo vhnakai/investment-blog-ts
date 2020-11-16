@@ -1,6 +1,9 @@
-import styled from 'styled-components';
+import styled , {css}from 'styled-components';
 import { Container, Jumbotron, Row, Col, Card } from 'react-bootstrap';
 
+interface CardProps {
+  types: 'NOTICIA' | 'ARTIGO' | 'CATEGORIA';
+}
 
 export const HomeContainer = styled(Container)`
   justify-content: center;
@@ -23,7 +26,7 @@ export const HomeCol = styled(Col)`
   }
 `;
 
-export const HomeCard = styled(Card)`
+export const HomeCard = styled(Card)<CardProps>`
   margin-top: 8px;
   background: #222;
   color: #f3f3f3;
@@ -36,6 +39,16 @@ export const HomeCard = styled(Card)`
   p {
     text-align: justify;
   }
+
+  ${props => props.types === 'NOTICIA' && css`
+    border: 'danger';
+  ` }
+  ${props => props.types === 'ARTIGO' && css`
+    border: 'sucess';
+  ` }
+  ${props => props.types === 'CATEGORIA' && css`
+    border: 'info';
+  ` }
 
 `;
 

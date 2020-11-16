@@ -6,9 +6,9 @@ export const AboutContainer = styled(Container)`
   position: relative;
   min-height: 100vh;
   text-align: justify;
-  h3{
+  h2{
     text-indent: 1.5em;
-    font-size: larger;
+    font-size: x-large;
     margin-bottom: 1em;
   }
 `;

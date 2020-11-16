@@ -18,8 +18,12 @@ const Footer: React.FC = () => {
             <p>email@email.com</p>
           </FooterCol>
           <FooterCol md>
-            <FiFacebook size={35} />
-            <FiInstagram size={35} />
+            <a href='https://www.facebook.com'>
+              <FiFacebook size={35} />
+            </a>
+            <a href='https://www.instagram.com'>
+              <FiInstagram size={35} />
+            </a>
           </FooterCol>
           <FooterCol md>
             <h4>Feito por </h4>

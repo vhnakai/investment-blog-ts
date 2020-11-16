@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, Row, Col, } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export const FooterDiv = styled.footer`
   position: absolute;
@@ -19,3 +19,4 @@ export const FooterRow = styled(Row)``;
 export const FooterCol = styled(Col)`
   line-height:26px;
 `;
+
