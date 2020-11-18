@@ -1,12 +1,12 @@
-import styled , {css}from 'styled-components';
+import styled , {css} from 'styled-components';
 import { Container, Jumbotron, Row, Col, Card } from 'react-bootstrap';
 
 interface CardProps {
-  types: 'NOTICIA' | 'ARTIGO' | 'CATEGORIA';
+  types: 'IMPACTO SOCIAL' | 'ALTERNATIVOS' | 'DICAS' | 'IDEIAS';
 }
 
 export const HomeContainer = styled(Container)`
-  justify-content: center;
++  justify-content: center;
   position: relative;
   min-height: 100vh;
 `;
@@ -40,13 +40,16 @@ export const HomeCard = styled(Card)<CardProps>`
     text-align: justify;
   }
 
-  ${props => props.types === 'NOTICIA' && css`
+  ${props => props.types === 'IMPACTO SOCIAL' && css`
     border: 'danger';
   ` }
-  ${props => props.types === 'ARTIGO' && css`
-    border: 'sucess';
+  ${props => props.types === 'ALTERNATIVOS' && css`
+    border: 'warning';
   ` }
-  ${props => props.types === 'CATEGORIA' && css`
+  ${props => props.types === 'DICAS' && css`
+    border: 'success';
+  ` }
+  ${props => props.types === 'IDEIAS' && css`
     border: 'info';
   ` }
 

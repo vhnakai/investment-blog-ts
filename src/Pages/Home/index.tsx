@@ -23,7 +23,7 @@ interface Article {
   markdownArticle: string;
   // createdAt: string;
   date: string;
-  categories: string[];
+  category: string;
 }
 
 const Home: React.FC = () => {
@@ -73,7 +73,7 @@ const Home: React.FC = () => {
             currentPosts.map(article => (
               <HomeCol key={article._id} sm={6}>
                 <Link to={'/view/' + article.slug}>
-                  <HomeCard className="text-center h-100" types={article.categories}>
+                  <HomeCard className="text-center h-100" types={article.category}>
                     <HomeCard.Body>
                       <HomeCard.Title>{article.title}</HomeCard.Title>
                       <HomeCard.Text>

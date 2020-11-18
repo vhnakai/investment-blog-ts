@@ -20,6 +20,7 @@ interface Article {
   tags: string;
   author: string;
   date: Date;
+  category: string;
   isDataImported: boolean;
   visibility: 'ALL' | 'EDITORS' | 'USERS';
   state: 'EDITING' | 'PUBLISHED';
@@ -49,8 +50,8 @@ const EditArticle: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
 
   //const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('');
-  const [selectedStateOption, setSelectedStateOption] = useState('');
+  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('EDITORS');
+  const [selectedStateOption, setSelectedStateOption] = useState('EDITING');
   const [article, setArticle] = useState<Article>({
     title: '',
     description: '',
@@ -58,6 +59,7 @@ const EditArticle: React.FC = () => {
     tags: '',
     author: '',
     date: new Date(),
+    category: '',
     isDataImported: false,
     visibility: 'EDITORS',
     state: 'EDITING',
@@ -85,6 +87,7 @@ const EditArticle: React.FC = () => {
             tags: response.data.article.tags.join([', ']),
             author: response.data.article.author,
             date: new Date(response.data.article.date.toString()),
+            category: response.data.article.category,
             isDataImported: true,
             visibility: response.data.article.visibility,
             state: response.data.article.state,
@@ -121,6 +124,7 @@ const EditArticle: React.FC = () => {
       tags: article.tags.match(regex),
       author: article.author,
       date: article.date,
+      category: article.category,
       visibility: selectedVisibilityOption,
       state: selectedStateOption,
     };
@@ -138,8 +142,6 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
-  // TODO: Translate to Portuguese All Label and Placeholder
-
   return (
     <>
       <EditArticleJumbotron fluid>
@@ -199,6 +201,16 @@ const EditArticle: React.FC = () => {
               value={article.author}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setArticle({ ...article, author: e.target.value })
+              }
+            />
+          </EditArticleForm.Group>
+          <EditArticleForm.Group>
+            <EditArticleForm.Label>Categorias </EditArticleForm.Label>
+            <EditArticleForm.Control
+              type="text"
+              value={article.category}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setArticle({ ...article, category: e.target.value })
               }
             />
           </EditArticleForm.Group>
