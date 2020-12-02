@@ -27,6 +27,12 @@ interface Article {
   state: 'EDITING' | 'PUBLISHED';
 }
 
+interface Photos {
+  url: string;
+  width: number;
+  height: number;
+}
+
 interface OptionType {
   value: string;
   label: string;
@@ -139,6 +145,23 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
+
+
+  // const imageRenderer = useCallback(
+  //   ({ index, left, top, key, containerHeight, photo }) => (
+  //     <SelectedImage
+  //       selected={selectAll ? true : false}
+  //       key={key}
+  //       margin={'2px'}
+  //       index={index}
+  //       photo={photo}
+  //       left={left}
+  //       top={top}
+  //     />
+  //   ),
+  //   [selectAll]
+  // );
+
   return (
     <>
       <EditArticleJumbotron fluid>
