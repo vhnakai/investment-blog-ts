@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
 import { Col, Image } from 'react-bootstrap';
+
+import Gallery from 'react-photo-gallery';
+
 import {
   EditArticleForm,
   EditArticleButton,
@@ -24,6 +27,12 @@ interface Article {
   isDataImported: boolean;
   visibility: 'ALL' | 'EDITORS' | 'USERS';
   state: 'EDITING' | 'PUBLISHED';
+}
+
+interface Photos {
+  url: string;
+  width: number;
+  height: number;
 }
 
 interface OptionType {
@@ -47,7 +56,8 @@ const EditArticle: React.FC = () => {
   const DEFAULT_IMG = '';
 
   const [date, setDate] = useState<Date>(new Date());
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Photos[]>([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   //const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('EDITORS');
@@ -70,10 +80,12 @@ const EditArticle: React.FC = () => {
       setImages(
         res.data.images.map((image: { url: any }) =>
           typeof image.url === 'string' ? image.url : DEFAULT_IMG,
-        ),
+        )
       );
     });
   }, []);
+
+  console.log(images);
 
   useEffect(() => {
     if (!article.isDataImported) {
@@ -142,6 +154,23 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
+
+
+  // const imageRenderer = useCallback(
+  //   ({ index, left, top, key, containerHeight, photo }) => (
+  //     <SelectedImage
+  //       selected={selectAll ? true : false}
+  //       key={key}
+  //       margin={'2px'}
+  //       index={index}
+  //       photo={photo}
+  //       left={left}
+  //       top={top}
+  //     />
+  //   ),
+  //   [selectAll]
+  // );
+
   return (
     <>
       <EditArticleJumbotron fluid>
@@ -217,13 +246,7 @@ const EditArticle: React.FC = () => {
           <EditArticleForm.Group>
             <EditArticleForm.Label>Imagens disponiveis</EditArticleForm.Label>
 
-            <ItemGrid>
-              {images.map((image, i) => (
-                <li key={i}>
-                  <Image src={image} rounded />
-                </li>
-              ))}
-            </ItemGrid>
+             <Gallery photos={images}  />
           </EditArticleForm.Group>
           <EditArticleForm.Group>
             <DatePicker
