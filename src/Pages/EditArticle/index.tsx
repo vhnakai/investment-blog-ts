@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
@@ -27,7 +27,6 @@ interface Article {
   state: 'EDITING' | 'PUBLISHED';
 }
 
-
 interface OptionType {
   value: string;
   label: string;
@@ -53,7 +52,9 @@ const EditArticle: React.FC = () => {
   const textAreaRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState('');
 
-  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('EDITORS');
+  const [selectedVisibilityOption, setSelectedVisibilityOption] = useState(
+    'EDITORS',
+  );
   const [selectedStateOption, setSelectedStateOption] = useState('EDITING');
   const [article, setArticle] = useState<Article>({
     title: '',
@@ -71,13 +72,14 @@ const EditArticle: React.FC = () => {
   useEffect(() => {
     api.get('images').then(res => {
       setImages(
-        res.data.images.map((image: { url: any }) =>
-          typeof image.url === 'string' ? image.url : DEFAULT_IMG,
-        )
+        res.data.images.map((image: { slug: any }) =>
+          typeof image.slug === 'string'
+            ? 'http://localhost:5000/images/' + image.slug
+            : DEFAULT_IMG,
+        ),
       );
     });
   }, []);
-
 
   useEffect(() => {
     if (!article.isDataImported) {
@@ -107,7 +109,7 @@ const EditArticle: React.FC = () => {
   const copyToClipboard = () => {
     textAreaRef.current?.select();
     document.execCommand('copy');
-  }
+  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -217,7 +219,11 @@ const EditArticle: React.FC = () => {
             <ItemGrid>
               {images.map((image, i) => (
                 <li key={i}>
-                  <Image src={image} rounded onClick={() => setSelectedImage(image)}/>
+                  <Image
+                    src={image}
+                    thumbnail
+                    onClick={() => setSelectedImage(image)}
+                  />
                 </li>
               ))}
             </ItemGrid>
