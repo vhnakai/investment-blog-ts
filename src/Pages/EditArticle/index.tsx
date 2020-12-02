@@ -27,11 +27,6 @@ interface Article {
   state: 'EDITING' | 'PUBLISHED';
 }
 
-interface Photos {
-  url: string;
-  width: number;
-  height: number;
-}
 
 interface OptionType {
   value: string;
@@ -58,7 +53,6 @@ const EditArticle: React.FC = () => {
   const textAreaRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState('');
 
-  //const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('EDITORS');
   const [selectedStateOption, setSelectedStateOption] = useState('EDITING');
   const [article, setArticle] = useState<Article>({
@@ -145,22 +139,6 @@ const EditArticle: React.FC = () => {
         console.log(error);
       });
   };
-
-
-  // const imageRenderer = useCallback(
-  //   ({ index, left, top, key, containerHeight, photo }) => (
-  //     <SelectedImage
-  //       selected={selectAll ? true : false}
-  //       key={key}
-  //       margin={'2px'}
-  //       index={index}
-  //       photo={photo}
-  //       left={left}
-  //       top={top}
-  //     />
-  //   ),
-  //   [selectAll]
-  // );
 
   return (
     <>
