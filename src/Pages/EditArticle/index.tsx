@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  useRef } from 'react';
 import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import api from '../../services/api';
 import { Col, Image } from 'react-bootstrap';
+
 import {
   EditArticleForm,
   EditArticleButton,
@@ -48,6 +49,8 @@ const EditArticle: React.FC = () => {
 
   const [date, setDate] = useState<Date>(new Date());
   const [images, setImages] = useState<string[]>([]);
+  const textAreaRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState('');
 
   //const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedVisibilityOption, setSelectedVisibilityOption] = useState('EDITORS');
@@ -70,10 +73,11 @@ const EditArticle: React.FC = () => {
       setImages(
         res.data.images.map((image: { url: any }) =>
           typeof image.url === 'string' ? image.url : DEFAULT_IMG,
-        ),
+        )
       );
     });
   }, []);
+
 
   useEffect(() => {
     if (!article.isDataImported) {
@@ -100,17 +104,10 @@ const EditArticle: React.FC = () => {
     }
   });
 
-  /*function handleSelectItem(id : number){
-
-    const alreadySelected = selectedItems.findIndex(item => item === id);
-
-    if(alreadySelected >= 0){
-        const filteredItems = selectedItems.filter(item => item !== id)
-        setSelectedItems(filteredItems);
-    } else {
-        setSelectedItems([...selectedItems, id]);
-    }
-  }*/
+  const copyToClipboard = () => {
+    textAreaRef.current?.select();
+    document.execCommand('copy');
+  }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -216,14 +213,22 @@ const EditArticle: React.FC = () => {
           </EditArticleForm.Group>
           <EditArticleForm.Group>
             <EditArticleForm.Label>Imagens disponiveis</EditArticleForm.Label>
-
             <ItemGrid>
               {images.map((image, i) => (
                 <li key={i}>
-                  <Image src={image} rounded />
+                  <Image src={image} rounded onClick={() => setSelectedImage(image)}/>
                 </li>
               ))}
             </ItemGrid>
+            <EditArticleForm.Control
+              type="text"
+              value={selectedImage}
+              ref={textAreaRef}
+              disabled
+            />
+            <EditArticleButton onClick={copyToClipboard} variant="primary">
+              copiar
+            </EditArticleButton>
           </EditArticleForm.Group>
           <EditArticleForm.Group>
             <DatePicker
