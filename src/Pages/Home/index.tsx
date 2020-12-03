@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 import {
   HomeContainer,
@@ -11,7 +11,7 @@ import {
   AdContainer,
 } from './styles';
 
-import CustomPagination  from "../../Components/CustomPagination";
+import CustomPagination from '../../Components/CustomPagination';
 import SearchForm from '../../Components/SearchForm';
 import Footer from '../../Components/Footer';
 
@@ -33,39 +33,38 @@ const Home: React.FC = () => {
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    api.get('/articles/').then(res => setArticles(res.data.articles));
+    api.get('api/articles/').then(res => setArticles(res.data.articles));
   }, []);
 
   useEffect(() => {
-    api.get(`/articles?search=${searchText}`).then((response: AxiosResponse) => {
-      setArticles(response.data.articles);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  },[searchText]);
+    api
+      .get(`api/articles?${searchText ? 'search=' + searchText : ''}`)
+      .then((response: AxiosResponse) => {
+        setArticles(response.data.articles);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [searchText]);
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchText(e.target.value);
-  }
-
+  };
 
   const handlePaginate = (value: number) => {
     setPage(value);
-  }
+  };
 
   const indexOfLastPost = page * 10;
   const indexOfFirstPost = indexOfLastPost - 10;
   const currentPosts = articles.slice(indexOfFirstPost, indexOfLastPost);
-
-
 
   return (
     <>
       <HomeJumbotron fluid>
         <h1>Encontre investimentos em que você acredita!</h1>
       </HomeJumbotron>
-      <SearchForm onChange={handleSearchInput} value={searchText}/>
+      <SearchForm onChange={handleSearchInput} value={searchText} />
       <AdContainer />
       <HomeContainer>
         <HomeRow>
@@ -73,7 +72,10 @@ const Home: React.FC = () => {
             currentPosts.map(article => (
               <HomeCol key={article._id} sm={6}>
                 <Link to={'/view/' + article.slug}>
-                  <HomeCard className="text-center h-100" types={article.category}>
+                  <HomeCard
+                    className="text-center h-100"
+                    types={article.category}
+                  >
                     <HomeCard.Body>
                       <HomeCard.Title>{article.title}</HomeCard.Title>
                       <HomeCard.Text>
@@ -93,7 +95,10 @@ const Home: React.FC = () => {
             </HomeCol>
           )}
         </HomeRow>
-        <CustomPagination totalPosts={articles.length} paginate={handlePaginate}/>
+        <CustomPagination
+          totalPosts={articles.length}
+          paginate={handlePaginate}
+        />
       </HomeContainer>
       <Footer />
     </>

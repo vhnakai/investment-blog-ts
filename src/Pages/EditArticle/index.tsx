@@ -70,11 +70,11 @@ const EditArticle: React.FC = () => {
   });
 
   useEffect(() => {
-    api.get('images').then(res => {
+    api.get('api/images').then(res => {
       setImages(
         res.data.images.map((image: { slug: any }) =>
           typeof image.slug === 'string'
-            ? 'http://localhost:5000/images/' + image.slug
+            ? 'http://localhost:5000/api/images/' + image.slug
             : DEFAULT_IMG,
         ),
       );
@@ -84,7 +84,7 @@ const EditArticle: React.FC = () => {
   useEffect(() => {
     if (!article.isDataImported) {
       api
-        .get('/articles/' + params.id) //getting the id from url
+        .get('api/articles/' + params.id) //getting the id from url
         .then((response: AxiosResponse) => {
           setArticle({
             title: response.data.article.title,
@@ -131,7 +131,7 @@ const EditArticle: React.FC = () => {
     console.log(newArticle);
 
     api
-      .post('/articles/' + params.id, newArticle)
+      .post('api/articles/' + params.id, newArticle)
       .then((res: AxiosResponse) => {
         console.log(res.data);
 

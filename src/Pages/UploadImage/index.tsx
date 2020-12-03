@@ -36,7 +36,7 @@ const UploadImage: React.FC = () => {
 
     // formData.append('tags',tags.toString())
 
-    api.post('/images/', formData).then(res => {
+    api.post('api/images/', formData).then(res => {
       console.log(res);
     });
   };

@@ -16,8 +16,7 @@ const Signup: React.FC = () => {
     password: '',
   });
 
-  const { register , handleSubmit} = useForm();
-
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const Signup: React.FC = () => {
     };
 
     api
-      .post('/users/', newUser)
+      .post('api/users/', newUser)
       .then(res => {
         console.log(res.data);
 
@@ -61,12 +60,12 @@ const Signup: React.FC = () => {
             type="text"
             required
             ref={register({
-              required: "Coloque seu e-mail",
+              required: 'Coloque seu e-mail',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "Insira um email válido.",
+                message: 'Insira um email válido.',
               },
-             })}
+            })}
             value={user.email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setUser({ ...user, email: e.target.value })
@@ -79,7 +78,7 @@ const Signup: React.FC = () => {
           <Form.Control
             type="password"
             required
-            ref={register({required: "Senha é obrigatória.", minLength: 6})}
+            ref={register({ required: 'Senha é obrigatória.', minLength: 6 })}
             value={user.password}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setUser({ ...user, password: e.target.value })

@@ -3,7 +3,7 @@ import api from './api';
 
 export const checkAuthenticated = async (): Promise<Boolean> => {
   try {
-    const res = await api.get('/auth/');
+    const res = await api.get('api/auth/');
     if (res.data.user) return true;
   } catch (err) {
     console.log('não autorizado', err);
@@ -17,7 +17,7 @@ export const signin = async (email: String, password: String) => {
   let authorized = false;
 
   authorized = await api
-    .post('/auth/', user)
+    .post('api/auth/', user)
     .then((res: AxiosResponse) => {
       if (res.data.user) return true;
       return false;

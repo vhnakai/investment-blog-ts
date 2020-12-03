@@ -24,14 +24,14 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     console.log('useEffect');
-    api.get('/articles/all').then(res => {
+    api.get('api/articles/all').then(res => {
       setArticles(res.data.articles);
     });
   }, []);
 
   const deleteArticle = (id: string) => {
     api
-      .delete('/articles/' + id)
+      .delete('api/articles/' + id)
       .then((res: AxiosResponse<any>) => console.log(res.data));
     setArticles(articles.filter((el: Article) => el.slug !== id));
   };
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
           variant="danger"
           onClick={() =>
             api
-              .delete('/auth')
+              .delete('api/auth')
               .then(res => {
                 console.log(res.data);
                 window.location.reload();
