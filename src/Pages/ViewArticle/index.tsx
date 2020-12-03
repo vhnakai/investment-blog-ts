@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import {FacebookProvider ,Comments } from 'react-facebook';
+import { FacebookProvider, Comments } from 'react-facebook';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 
@@ -30,7 +30,7 @@ const ViewArticle: React.FC = () => {
 
   useEffect(() => {
     api
-      .get('/articles/' + params.id)
+      .get('api/articles/' + params.id)
       .then((response: AxiosResponse) => {
         setArticle({
           title: response.data.article.title,
@@ -56,9 +56,8 @@ const ViewArticle: React.FC = () => {
           <ShowCol>
             <ReactMarkdown source={article.markdownArticle} />
             <FacebookProvider appId="123456789">
-              <Comments href="localhost"/>
+              <Comments href="localhost" />
             </FacebookProvider>
-
           </ShowCol>
         </ShowRow>
       </ShowContainer>
