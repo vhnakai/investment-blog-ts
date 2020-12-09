@@ -74,7 +74,8 @@ const EditArticle: React.FC = () => {
       setImages(
         res.data.images.map((image: { slug: any }) =>
           typeof image.slug === 'string'
-            ? 'https://herokuinvestmentblog.herokuapp.com/api/images/' +
+            ? (process.env.BACKEND_URL || 'http://localhost:5000') +
+              '/api/images/' +
               image.slug
             : DEFAULT_IMG,
         ),
