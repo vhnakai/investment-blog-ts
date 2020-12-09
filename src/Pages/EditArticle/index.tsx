@@ -108,8 +108,7 @@ const EditArticle: React.FC = () => {
   });
 
   const copyToClipboard = () => {
-    textAreaRef.current?.select();
-    document.execCommand('copy');
+    navigator.clipboard.writeText(selectedImage);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
