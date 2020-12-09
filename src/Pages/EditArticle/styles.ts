@@ -24,9 +24,8 @@ export const ItemGrid = styled.ul`
   li {
     background: #f5f5f5;
     border: 2px solid #f5f5f5;
-    height: 180px;
-    border-radius: 8px;
-    padding: 32px 24px 16px;
+    border-radius: 16px;
+    padding: 32px 24px;
 
     display: flex;
     flex-direction: column;
