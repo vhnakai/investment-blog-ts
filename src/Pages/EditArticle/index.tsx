@@ -72,13 +72,16 @@ const EditArticle: React.FC = () => {
   useEffect(() => {
     api.get('api/images').then(res => {
       setImages(
-        res.data.images.map((image: { slug: any }) =>
-          typeof image.slug === 'string'
+        res.data.images.map((image: { url: any; slug: any }) => {
+          if (process.env.NODE_ENV === 'production')
+            return typeof image.url === 'string' ? image.url : DEFAULT_IMG;
+
+          return typeof image.slug === 'string'
             ? (process.env.BACKEND_URL || 'http://localhost:5000') +
-              '/api/images/' +
-              image.slug
-            : DEFAULT_IMG,
-        ),
+                '/api/images/' +
+                image.slug
+            : DEFAULT_IMG;
+        }),
       );
     });
   }, []);

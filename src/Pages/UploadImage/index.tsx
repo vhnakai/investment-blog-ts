@@ -10,35 +10,31 @@ import {
 
 const UploadImage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File>();
+  const [size, setSize] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [tags, setTags] = useState<string>('');
+  const [format, setFormat] = useState<string>('');
+  const [quality, setQuality] = useState<string>('');
 
   const onSubmit = () => {
     const data = new FormData();
 
     if (selectedFile) {
       data.append('image', selectedFile);
-    }
+      if (name) data.append('name', name);
+      if (tags) data.append('tags', tags);
+      if (format) data.append('format', format);
+      if (quality) data.append('quality', quality);
+      if (size) data.append('size', size);
 
-    //api.post('points', data); saida para inserir no Mongo WIP
+      api.post('api/images/', data).then(res => {
+        console.log(res);
+      });
+    }
   };
 
   const handleFile = (file: File) => {
     setSelectedFile(file);
-
-    //if size is sent, the maximum dimention on any "side" of the image will be "size pixels"
-    const size = '1024';
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    if (size) formData.append('size', size);
-
-    // const tags = ['teste',"teste2"];
-
-    // formData.append('tags',tags.toString())
-
-    api.post('api/images/', formData).then(res => {
-      console.log(res);
-    });
   };
 
   return (
@@ -48,6 +44,65 @@ const UploadImage: React.FC = () => {
       </UploadImageJumbotron>
       <UploadImageContainer>
         <UploadImageForm onSubmit={onSubmit}>
+          <UploadImageForm.Group>
+            <UploadImageForm.Label>Nome: </UploadImageForm.Label>
+            <UploadImageForm.Control
+              type="text"
+              required
+              value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
+            />
+          </UploadImageForm.Group>
+
+          <UploadImageForm.Group>
+            <UploadImageForm.Label>Tags: </UploadImageForm.Label>
+            <UploadImageForm.Control
+              type="text"
+              required
+              value={tags}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setTags(e.target.value)
+              }
+            />
+          </UploadImageForm.Group>
+
+          <UploadImageForm.Group>
+            <UploadImageForm.Label>Tamanho/Dimensões: </UploadImageForm.Label>
+            <UploadImageForm.Control
+              type="text"
+              value={size}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSize(e.target.value)
+              }
+            />
+          </UploadImageForm.Group>
+
+          <UploadImageForm.Group>
+            <UploadImageForm.Label>
+              Formato (jpg,png,webp):{' '}
+            </UploadImageForm.Label>
+            <UploadImageForm.Control
+              type="text"
+              value={format}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFormat(e.target.value)
+              }
+            />
+          </UploadImageForm.Group>
+
+          <UploadImageForm.Group>
+            <UploadImageForm.Label>quality (0~100): </UploadImageForm.Label>
+            <UploadImageForm.Control
+              type="text"
+              value={quality}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setQuality(e.target.value)
+              }
+            />
+          </UploadImageForm.Group>
+
           <UploadImageForm.Group>
             <Dropzone onFileUploaded={handleFile} />
           </UploadImageForm.Group>
