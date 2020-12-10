@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                     <HomeCard.Body>
                       <HomeCard.Title>{article.title}</HomeCard.Title>
                       <HomeCard.Text>
-                        <p>{article.description}</p>
+                        {article.description}
                       </HomeCard.Text>
                     </HomeCard.Body>
                     <HomeCard.Footer>
